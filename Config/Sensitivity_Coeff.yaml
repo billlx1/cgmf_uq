@@ -1,0 +1,286 @@
+# -------------------------------------------------------------------------
+# Sensitivity Study Configuration
+#
+# - Each parameter is varied individually while all others are kept at default.
+# - Values are specified as relative scaling factors from the default in 
+#   parameter_registry.yaml
+# - Example: 1.05 -> 5% above default, 0.95 -> 5% below default
+# -------------------------------------------------------------------------
+
+parameters:
+
+  global_PSF_norm:
+    enabled: true
+    description: Global photon strength function normalization
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]   # relative to default 1.0
+
+  E1_DArigo_E_const1:
+    enabled: true
+    description: DArigo E1 peak energy constant term 1
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]  # e.g., ±4% around default
+
+  E1_DArigo_E_const2:
+    enabled: true
+    description: DArigo E1 peak energy constant term 2
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DArigo_E_exp:
+    enabled: true
+    description: DArigo E1 peak energy mass exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DArigo_W_factor:
+    enabled: true
+    description: DArigo E1 width factor
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DArigo_S_coef:
+    enabled: true
+    description: DArigo E1 XS coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_E_const:
+    enabled: true
+    description: Double Hump 0 E1 energy constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_E_exp_mass:
+    enabled: true
+    description: Double Hump 0 E1 mass exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_E_exp_beta:
+    enabled: true
+    description: Double Hump 0 E1 beta exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_W_const:
+    enabled: true
+    description: Double Hump 0 width constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_W_beta_coef:
+    enabled: true
+    description: Double Hump 0 beta width coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH0_S_coef:
+    enabled: true
+    description: Double Hump 0 XS coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH1_E_const:
+    enabled: true
+    description: Double Hump 1 E1 energy constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH1_E_exp_mass:
+    enabled: true
+    description: Double Hump 1 mass exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH1_W_const:
+    enabled: true
+    description: Double Hump 1 width constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH1_W_beta_coef:
+    enabled: true
+    description: Double Hump 1 beta width coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E1_DH1_S_coef:
+    enabled: true
+    description: Double Hump 1 XS coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  M1_E_const:
+    enabled: true
+    description: M1 resonance energy constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  M1_E_exp:
+    enabled: true
+    description: M1 mass exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  M1_W_val:
+    enabled: true
+    description: M1 damping width
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  M1_S_val:
+    enabled: true
+    description: M1 XS coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E2_E_const:
+    enabled: true
+    description: E2 resonance energy constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E2_E_exp:
+    enabled: true
+    description: E2 mass exponent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E2_W_const:
+    enabled: true
+    description: E2 width constant
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E2_W_mass_coef:
+    enabled: true
+    description: E2 mass-dependent width coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  E2_S_coef:
+    enabled: true
+    description: E2 XS coefficient
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  alpha_0:
+    enabled: true
+    description: Spin scaling baseline factor
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  alpha_slope:
+    enabled: true
+    description: Spin scaling energy slope
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_en_a:
+    enabled: true
+    description: TKE(En) intercept term a
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_en_e0:
+    enabled: true
+    description: TKE(En) inflection energy E0
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_en_b:
+    enabled: true
+    description: TKE(En) low-energy slope b
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_en_d:
+    enabled: true
+    description: TKE(En) high-energy slope d
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_a0:
+    enabled: true
+    description: TKE(Ah) centering mass a0
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_amax:
+    enabled: true
+    description: TKE(Ah) max mass cutoff
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c0:
+    enabled: true
+    description: TKE(Ah) constant term (peak energy)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c1:
+    enabled: true
+    description: TKE(Ah) 1st order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c2:
+    enabled: true
+    description: TKE(Ah) 2nd order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c3:
+    enabled: true
+    description: TKE(Ah) 3rd order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c4:
+    enabled: true
+    description: TKE(Ah) 4th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c5:
+    enabled: true
+    description: TKE(Ah) 5th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c6:
+    enabled: true
+    description: TKE(Ah) 6th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c7:
+    enabled: false
+    description: TKE(Ah) 7th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  tke_ah_c8:
+    enabled: false
+    description: TKE(Ah) 8th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_a0:
+    enabled: true
+    description: Sigma TKE(Ah) centering mass a0
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_amax:
+    enabled: true
+    description: Sigma TKE(Ah) max mass cutoff
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c0:
+    enabled: true
+    description: Sigma TKE(Ah) constant term (base width)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c1:
+    enabled: true
+    description: Sigma TKE(Ah) 1st order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c2:
+    enabled: true
+    description: Sigma TKE(Ah) 2nd order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c3:
+    enabled: true
+    description: Sigma TKE(Ah) 3rd order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c4:
+    enabled: true
+    description: Sigma TKE(Ah) 4th order coef
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  Stke_ah_c5:
+    enabled: false
+    description: Sigma TKE(Ah) 5th order coef
+    scaling_factors: [0.9, 0.95, 1.05, 1.1]
+
+  Stke_ah_c6:
+    enabled: false
+    description: Sigma TKE(Ah) 6th order coef
+    scaling_factors: [0.9, 0.95, 1.05, 1.1]
+
+  Stke_ah_c7:
+    enabled: false
+    description: Sigma TKE(Ah) 7th order coef
+    scaling_factors: [0.9, 0.95, 1.05, 1.1]
+
+  Stke_ah_c8:
+    enabled: false
+    description: Sigma TKE(Ah) 8th order coef
+    scaling_factors: [0.9, 0.95, 1.05, 1.1]
+
+  rta_scale_factor:
+    enabled: true
+    description: Global R_T(A) yield scaling factor
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
