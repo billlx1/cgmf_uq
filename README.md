@@ -1,16 +1,16 @@
 CGMF_UQ
 Author: Bill Hillman
 ----------------------
-CGMF is a code which simulates prompt fission neutron and gamma emission from excited fission fragments right after scission.
-CGMF main repository: https://github.com/lanl/CGMF
-For the purposes of this project a fork of CGMF has been made which parametises gamma strength function 'magic numbers' and places them in gstrength_gdr_params.dat
+CGMF is a code which simulates prompt fission neutron and gamma emission from excited fission fragments right after scission.\n
+CGMF main repository: https://github.com/lanl/CGMF\n
+For the purposes of this project a fork of CGMF has been made which parametises gamma strength function 'magic numbers' and places them in gstrength_gdr_params.dat\n
 
-The purpose of this repository is to provide a wrapper through which randomly perturbed CGMF calculations can be performed.
-Perturbations are carried out by mainpulating .dat files within CGMF.
-This project includes the following specific .dat files at the time of writing:
-. gstrength_gdr_params.dat
-. tkemodel.dat
-. spinscallingmodel.dat
+The purpose of this repository is to provide a wrapper through which randomly perturbed CGMF calculations can be performed.\n
+Perturbations are carried out by mainpulating .dat files within CGMF.\n
+This project includes the following specific .dat files at the time of writing:\n
+. gstrength_gdr_params.dat\n
+. tkemodel.dat\n
+. spinscallingmodel.dat\n
 . rta.dat
 . yamodel.dat (COMMING SOON)
 . kcksyst.dat (COMMING SOON)
