@@ -1,27 +1,40 @@
-CGMF_UQ
-Author: Bill Hillman
-----------------------
+# CGMF_UQ
+
+**Author:** Bill Hillman
+
+---
+
+## Overview
+
 CGMF is a code which simulates prompt fission neutron and gamma emission from excited fission fragments right after scission.
-CGMF main repository: https://github.com/lanl/CGMF
-For the purposes of this project a fork of CGMF has been made which parametises gamma strength function 'magic numbers' and places them in gstrength_gdr_params.dat
 
-The purpose of this repository is to provide a wrapper through which randomly perturbed CGMF calculations can be performed.
-Perturbations are carried out by mainpulating .dat files within CGMF.
-This project includes the following specific .dat files at the time of writing:
-. gstrength_gdr_params.dat\n
-. tkemodel.dat\n
-. spinscallingmodel.dat\n
-. rta.dat
-. yamodel.dat (COMMING SOON)
-. kcksyst.dat (COMMING SOON)
-. deformations.dat (COMMING SOON)
+**CGMF main repository:** https://github.com/lanl/CGMF
 
-This is done in two phases.
-. Phase 1: Sensitivity A/B Testing
-. Phase 2: Random Sampling (COMMING SOON)
+For the purposes of this project, a fork of CGMF has been made which parametrizes gamma strength function 'magic numbers' and places them in `gstrength_gdr_params.dat`.
 
-Project Structure:
+The purpose of this repository is to provide a wrapper through which randomly perturbed CGMF calculations can be performed. Perturbations are carried out by manipulating `.dat` files within CGMF.
 
+## Supported Data Files
+
+This project includes the following specific `.dat` files at the time of writing:
+
+- `gstrength_gdr_params.dat`
+- `tkemodel.dat`
+- `spinscalingmodel.dat`
+- `rta.dat`
+- `yamodel.dat` (COMING SOON)
+- `kcksyst.dat` (COMING SOON)
+- `deformations.dat` (COMING SOON)
+
+## Project Phases
+
+This is done in two phases:
+
+1. **Phase 1:** Sensitivity A/B Testing
+2. **Phase 2:** Random Sampling (COMING SOON)
+
+## Project Structure
+```
 PROJECT_ROOT/
 ├── CGMF_Data_Default/           # Baseline .dat files
 │   ├── deformations.dat
@@ -31,7 +44,7 @@ PROJECT_ROOT/
 │   ├── spinscalingmodel.dat
 │   ├── tkemodel.dat
 │   ├── yamodel.dat
-│   └── .....
+│   └── ...
 │
 ├── Config/
 │   ├── Default_Scale_Factors.json
@@ -48,7 +61,6 @@ PROJECT_ROOT/
 │   └── Sensitivity_Job_Template.sh
 │
 └── cgmf_uq/
-    │
     ├── io/
     │   ├── dat_generator.py
     │   ├── dat_parser.py
@@ -68,3 +80,4 @@ PROJECT_ROOT/
     │
     └── workflow/
         └── indexing.py
+```
