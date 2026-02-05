@@ -118,7 +118,6 @@ class ArrayJobConfig:
         self,
         job_name: str,
         manifest_path: Path,
-        job_map_path: Path,
         total_tasks: int,
         max_concurrent: int,
         events: int,
@@ -138,7 +137,6 @@ class ArrayJobConfig:
         Args:
             job_name: SLURM job name
             manifest_path: Path to manifest.csv
-            job_map_path: Path to job_map.txt
             total_tasks: Total number of array tasks
             max_concurrent: Max concurrent tasks
             events: CGMF events per task
@@ -166,7 +164,6 @@ class ArrayJobConfig:
             
             # Paths
             'PROJECT_DIR': str(self.project_dir),
-            'JOB_MAP': str(job_map_path),
             'MANIFEST': str(manifest_path),
             'OUTPUT_BASE': str(self.output_dir / 'runs'),
             'CGMF_ROOT': str(cgmf_root),
@@ -189,9 +186,7 @@ class ArrayJobConfig:
             'CGMF_DEFAULT_DATA',
             'POST_PROCESSOR',
             'CONDA_ROOT',
-            'JOB_MAP',
             'MANIFEST'
         ]
         
         return SlurmScriptGenerator.validate_path_exists(variables, critical_paths)
-

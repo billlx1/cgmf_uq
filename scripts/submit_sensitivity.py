@@ -22,7 +22,7 @@ def generate_configurations(
     sensitivity_path: Path,
     output_dir: Path,
     project_dir: Path
-) -> tuple[Path, Path, int]:
+) -> tuple[Path, int]:
     """
     Step 1: Call the JSON generator to create perturbed input files.
     """
@@ -54,17 +54,13 @@ def generate_configurations(
     print(result.stdout)
     
     manifest_path = config_dir / "manifest.txt"
-    job_map_path = config_dir / "job_map.txt"
-    
     # Verify outputs exist
     if not manifest_path.exists():
         raise FileNotFoundError(f"Manifest not created: {manifest_path}")
-    if not job_map_path.exists():
-        raise FileNotFoundError(f"Job map not created: {job_map_path}")
     
     # Don't count manually - let validate_configurations do it via TaskIndexer
     # This ensures consistency between what we say we have and what validator sees
-    return manifest_path, job_map_path, 0  # Return 0 as placeholder
+    return manifest_path, 0  # Return 0 as placeholder
 
 def validate_configurations(manifest_path: Path) -> int:
     """
@@ -101,7 +97,6 @@ def generate_slurm_script(
     template_path: Path,
     output_dir: Path,
     manifest_path: Path,
-    job_map_path: Path,
     total_tasks: int,
     config: dict
 ) -> Path:
@@ -124,7 +119,6 @@ def generate_slurm_script(
         
         # Paths
         'PROJECT_DIR': str(config['project_dir']),
-        'JOB_MAP': str(job_map_path),
         'MANIFEST': str(manifest_path),
         'OUTPUT_BASE': str(output_dir / 'runs'),
         'CGMF_ROOT': str(config['cgmf_root']),
@@ -256,7 +250,7 @@ def main():
     print("=" * 60)
 
     # 1. Generate Configs
-    manifest_path, job_map_path, _ = generate_configurations(
+    manifest_path, _ = generate_configurations(
         Path(args.registry), Path(args.sensitivity), output_dir, project_dir
     )
 
@@ -287,7 +281,7 @@ def main():
     }
     
     script_path = generate_slurm_script(
-        template_path, output_dir, manifest_path, job_map_path, total_tasks, config_dict
+        template_path, output_dir, manifest_path, total_tasks, config_dict
     )
     
     # 5. Submit

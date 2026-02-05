@@ -6,13 +6,11 @@
 #SBATCH --output={{LOG_DIR}}/{{JOB_NAME}}_%A_%a.out
 #SBATCH --error={{LOG_DIR}}/{{JOB_NAME}}_%A_%a.err
 
-# Get config file path from job_map (line number = SLURM_ARRAY_TASK_ID + 1)
-CONFIG_PATH=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" {{JOB_MAP}})
-
-# Extract metadata from manifest for logging (optional but useful)
+# Extract config path and metadata from manifest
 MANIFEST_LINE=$(awk -F',' -v id="${SLURM_ARRAY_TASK_ID}" '$1==id' {{MANIFEST}})
 PARAM_NAME=$(echo "$MANIFEST_LINE" | cut -d',' -f2)
 SCALE=$(echo "$MANIFEST_LINE" | cut -d',' -f3)
+CONFIG_PATH=$(echo "$MANIFEST_LINE" | cut -d',' -f4)
 
 echo "=========================================="
 echo "CGMF Sensitivity Run"
@@ -33,7 +31,6 @@ set -u  # Exit on undefined variable
 # Configuration (injected by orchestrator)
 #----------------------------------------------------
 PROJECT_DIR="{{PROJECT_DIR}}"
-JOB_MAP="{{JOB_MAP}}"
 MANIFEST="{{MANIFEST}}"
 OUTPUT_BASE="{{OUTPUT_BASE}}"
 EVENTS={{EVENTS}}
@@ -78,13 +75,13 @@ if [ "$CONDA_DEFAULT_ENV" != "$CONDA_ENV" ]; then
 fi
 
 #----------------------------------------------------
-# Configuration Lookup (fast sed-based)
+# Configuration Lookup (manifest-based)
 #----------------------------------------------------
-CONFIG_JSON=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" "$JOB_MAP")
+CONFIG_JSON=$(awk -F',' -v id="$SLURM_ARRAY_TASK_ID" '$1==id {print $4}' "$MANIFEST")
 
 if [ -z "$CONFIG_JSON" ]; then
     echo "ERROR: Failed to retrieve config for task $SLURM_ARRAY_TASK_ID"
-    echo "Job map: $JOB_MAP"
+    echo "Manifest: $MANIFEST"
     exit 1
 fi
 
@@ -198,8 +195,8 @@ echo ""
 echo ">> [$(date)] Step 4/4: Recording metadata"
 echo "----------------------------------------"
 
-# Extract parameter info from manifest (CSV format: task_id,parameter,value,...)
-PARAM_INFO=$(awk -F',' -v task="$SLURM_ARRAY_TASK_ID" 'NR==task+2 {print $2","$3}' "$MANIFEST")
+# Extract parameter info from manifest (CSV format: task_id,parameter,scale,config_file)
+PARAM_INFO=$(awk -F',' -v task="$SLURM_ARRAY_TASK_ID" '$1==task {print $2","$3}' "$MANIFEST")
 
 TOTAL_DURATION=$((duration_datgen + duration_sim + duration_py))
 

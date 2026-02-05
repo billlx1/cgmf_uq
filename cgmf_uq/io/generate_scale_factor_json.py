@@ -3,21 +3,20 @@
 Phase I: Sensitivity Input Generator
 ====================================
 
-FIXED VERSION: Task IDs now match job_map.txt line numbers by preserving
+FIXED VERSION: Task IDs now match manifest ordering by preserving
 natural YAML parameter order throughout (no sorting).
 
 This script mimics the "Submit" phase of your HPC workflow.
 1. It reads the Sensitivity Config (which parameters to vary).
 2. It reads the Registry (how to map parameter names to JSON).
 3. It generates a directory of physical JSON files.
-4. It generates a 'manifest.txt' for SLURM to iterate over.
-5. It generates a 'job_map.txt' for simple SLURM array indexing.
+4. It generates a single 'manifest.txt' for SLURM to iterate over
+   and to retrieve config paths by task_id.
 
 Output Structure:
     inputs/
     └── sensitivity_sweep/
         ├── manifest.txt          # Full metadata: task_id, parameter, scale, config_file
-        ├── job_map.txt           # Simple list: one config path per line
         ├── global_PSF_norm_0.900.json
         ├── global_PSF_norm_1.100.json
         └── ...
@@ -159,7 +158,7 @@ def generate_sweep(args):
         3. Loads parameter mapper and sensitivity configuration
         4. Iterates through parameters IN YAML ORDER (no sorting!)
         5. Generates JSON files sequentially
-        6. Creates manifest and job_map with aligned task IDs
+        6. Creates manifest with aligned task IDs
         7. Prints summary statistics
     """
     # --- Configuration from Arguments ---
@@ -229,7 +228,6 @@ def generate_sweep(args):
     print("-" * 80)
     
     manifest_lines = []
-    json_file_paths = []
     param_stats = defaultdict(int)  # For summary statistics only
     skipped_params = []
     
@@ -253,11 +251,8 @@ def generate_sweep(args):
         with open(file_path, 'w') as f:
             json.dump(json_content, f, indent=2)
         
-        # Track for job_map (maintains same order as generation)
-        json_file_paths.append(file_path)
-        
-        # Add to manifest (task_id now matches job_map line number perfectly)
-        manifest_entry = f"{task_id},{param_name},{scale},{filename}"
+        # Add to manifest (task_id matches array index)
+        manifest_entry = f"{task_id},{param_name},{scale},{file_path.resolve()}"
         manifest_lines.append(manifest_entry)
         
         # Update statistics (for display only - doesn't affect ordering)
@@ -265,7 +260,7 @@ def generate_sweep(args):
         
         print(f"{task_id:<4} | {param_name:<30} | {scale:<6.3f} | {filename}")
     
-    total_tasks = len(json_file_paths)
+    total_tasks = len(manifest_lines)
     
     # --- Write Manifest ---
     with open(manifest_path, 'w') as f:
@@ -273,12 +268,6 @@ def generate_sweep(args):
         f.write("\n".join(manifest_lines))
 
     
-    job_map_path = output_dir / "job_map.txt"
-    with open(job_map_path, "w") as f:
-        for json_file in json_file_paths:
-            # Write absolute path (no sorting - already in correct order!)
-            f.write(f"{json_file.resolve()}\n")
-
     # --- Print Summary ---
     print("-" * 80)
     print(f"\n{'='*80}")
@@ -308,7 +297,6 @@ def generate_sweep(args):
     
     print(f"\nOutput Files:")
     print(f"  • Manifest:   {manifest_path.resolve()}")
-    print(f"  • Job Map:    {job_map_path.resolve()}")
     print(f"  • JSON Files: {output_dir.resolve()}")
     print(f"  • File Count: {len(list(output_dir.glob('*.json')))} JSON files")
     
@@ -317,7 +305,7 @@ def generate_sweep(args):
     print(f"{'='*80}\n")
     print(f"✓ Task IDs follow natural YAML parameter order")
     print(f"  Task 0 = {configs_to_generate[0]['param_name']} @ {configs_to_generate[0]['scale']}")
-    print(f"✓ Manifest task_id matches job_map.txt line numbers perfectly")
+    print(f"✓ Manifest task_id matches array indices")
 
 
 if __name__ == "__main__":
