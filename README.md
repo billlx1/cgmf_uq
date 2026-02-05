@@ -46,19 +46,15 @@ PROJECT_ROOT/
 │   ├── yamodel.dat
 │   └── ...
 │
-├── Config/
+├── config/
 │   ├── Default_Scale_Factors.json
 │   ├── Parameter_Registry.yaml
 │   └── Sensitivity_Coeff.yaml
 │
-├── POST_PROCESSING_SCRIPTS/
-│   └── Post_Processing_V2.py
+├── scripts/
+│   ├── post_processing.py
 │
-├── SLURM_SCRIPTS/              
 │   └── submit_sensitivity.py
-│
-├── templates/
-│   └── Sensitivity_Job_Template.sh
 │
 └── cgmf_uq/
     ├── io/
@@ -76,7 +72,8 @@ PROJECT_ROOT/
     │       └── PARSE_yamodel.py
     │
     ├── slurm/
-    │   └── SLURM_Single_Job_Generator.py
+    │   ├── SLURM_Single_Job_Generator.py
+    │   └── sensitivity_job_template.sh
     │
     └── workflow/
         └── indexing.py

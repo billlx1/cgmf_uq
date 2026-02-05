@@ -211,7 +211,7 @@ def main():
                         help="Path to clean/unperturbed CGMF data")
                         
     parser.add_argument("--post-processor",
-                        default="/mnt/iusers01/fatpou01/phy01/mbcxawh2/software/PROJECT_ROOT/POST_PROCESSING_SCRIPTS/Post_Processing_V2.py",
+                        default="/mnt/iusers01/fatpou01/phy01/mbcxawh2/software/PROJECT_ROOT/scripts/post_processing.py",
                         help="Path to analysis Python script")
     
     # --- RUN PARAMETERS ---
@@ -246,7 +246,7 @@ def main():
     (output_dir / "logs").mkdir(exist_ok=True)
     (output_dir / "runs").mkdir(exist_ok=True)
     
-    template_path = project_dir / "templates" / "Sensitivity_Job_Template.sh"
+    template_path = project_dir / "cgmf_uq" / "slurm" / "sensitivity_job_template.sh"
     if not template_path.exists():
         print(f"ERROR: Template not found at {template_path}")
         sys.exit(1)
