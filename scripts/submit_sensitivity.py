@@ -5,6 +5,7 @@ Orchestrate sensitivity study: generate configs, populate template, submit array
 """
 import argparse
 import subprocess
+import csv
 from pathlib import Path
 import sys
 import re
@@ -14,7 +15,6 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 # Import local modules (Ensure these files exist in cgmf_uq/)
-from cgmf_uq.workflow.indexing import TaskIndexer
 from cgmf_uq.slurm.SLURM_Single_Job_Generator import SlurmScriptGenerator
 
 def generate_configurations(
@@ -58,7 +58,7 @@ def generate_configurations(
     if not manifest_path.exists():
         raise FileNotFoundError(f"Manifest not created: {manifest_path}")
     
-    # Don't count manually - let validate_configurations do it via TaskIndexer
+    # Don't count manually - let validate_configurations do it
     # This ensures consistency between what we say we have and what validator sees
     return manifest_path, 0  # Return 0 as placeholder
 
@@ -68,15 +68,34 @@ def validate_configurations(manifest_path: Path) -> int:
     Returns the actual task count.
     """
     print("\n[2/5] Validating configurations...")
-    
-    indexer = TaskIndexer(str(manifest_path))
-    
-    if not indexer.validate_manifest():
+    if not manifest_path.exists(): print(f"✗ Manifest missing: {manifest_path}"); sys.exit(1)
+    manifest_dir = manifest_path.parent
+    total = 0; valid = True
+    try:
+        with open(manifest_path, "r") as f:
+            reader = csv.DictReader(f)
+            required_cols = {"task_id", "config_file"}
+            if not required_cols.issubset(reader.fieldnames or []):
+                print(f"✗ Manifest missing required columns: {required_cols}")
+                print(f"  Found columns: {reader.fieldnames}")
+                sys.exit(1)
+            for row in reader:
+                task_id = row.get("task_id", "?")
+                config_file = row.get("config_file", "")
+                config_path = Path(config_file)
+                if not config_path.is_absolute():
+                    config_path = manifest_dir / config_file
+                if not config_path.exists():
+                    print(f"✗ Config missing for task {task_id}: {config_path}")
+                    valid = False
+                total += 1
+    except Exception as e:
+        print(f"✗ Error reading manifest: {e}")
+        sys.exit(1)
+    if not valid or total == 0:
         print("ERROR: Manifest validation failed. See errors above.")
         sys.exit(1)
-    
-    total = indexer.get_total_tasks()
-    return total
+    print(f"✓ {total} configurations validated"); return total
     
 
 def calculate_resources(total_tasks: int, max_concurrent: int, events: int, time_limit: str) -> None:
