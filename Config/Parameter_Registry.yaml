@@ -670,3 +670,336 @@ rta_params:
           - Given in terms of heavy fragment, describing both fragments in binary fission.
         scale_parameter: scale_factor
 
+
+# =========================================================================
+# FILE: yamodel.dat
+# Perturbation Strategy: INDEPENDENT SCALAR
+# 3-Gaussian Mass Yield Y(A) Parameterization
+# Parameters define the shape of the fission fragment mass distribution.
+# Suffix '_a': Constant term (Intercept) exc. Weight
+# Suffix '_b': Energy dependent term (Slope)
+# =========================================================================
+
+yamodel_params:
+  dat_file: yamodel.dat
+  perturbation_strategy: independent_scalar
+  isotope_specific: true
+  
+  parameters:
+  
+      MY_AS1_Wa:
+        id: "55"
+        default: Read at Runtime
+        units: MeV
+        description: >
+            - Weight (a) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Wa
+  
+      MY_AS1_Wb:
+        id: "56"
+        default: Read at Runtime
+        units: MeV-1
+        description: >
+            - Weight (b) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Wb
+  
+      MY_AS1_Mua:
+        id: "57"
+        default: Read at Runtime
+        units: amu
+        description: >
+          - Mean mass centroid (a) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Mua
+      
+      MY_AS1_Mub:
+        id: "58"
+        default: Read at Runtime
+        units: amu/MeV
+        description: >
+          - Mean mass centroid (b) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Mua
+  
+      MY_AS1_Siga:
+        id: "59"
+        default: Read at Runtime
+        units: amu
+        description: >
+          - Width/Variance (a) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Siga
+      
+      MY_AS1_Sigb:
+        id: "60"
+        default: Read at Runtime
+        units: amu/MeV
+        description: >
+          - Width/Variance (b) for the 1st Asymmetric Gaussian peak.
+        scale_parameter: MY_AS1_Sigb
+  
+      MY_AS2_Wa:
+        id: "61"
+        default: Read at Runtime
+        units: MeV
+        description: >
+            - Weight (a) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Wa
+  
+      MY_AS2_Wb:
+        id: "62"
+        default: Read at Runtime
+        units: MeV-1
+        description: >
+            - Weight (b) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Wb
+  
+      MY_AS2_Mua:
+        id: "63"
+        default: Read at Runtime
+        units: amu
+        description: >
+          - Mean mass centroid (a) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Mua
+      
+      MY_AS2_Mub:
+        id: "64"
+        default: Read at Runtime
+        units: amu/MeV
+        description: >
+          - Mean mass centroid (b) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Mub
+  
+      MY_AS2_Siga:
+        id: "65"
+        default: Read at Runtime
+        units: amu
+        description: >
+          - Width/Variance (a) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Siga
+      
+      MY_AS2_Sigb:
+        id: "66"
+        default: Read at Runtime
+        units: amu/MeV
+        description: >
+          - Width/Variance (b) for the 2nd Asymmetric Gaussian peak.
+        scale_parameter: MY_AS2_Sigb
+  
+      MY_S_Siga:
+        id: "67"
+        default: Read at Runtime
+        units: amu
+        description: >
+          - Width/Variance (a) for the Symmetric Gaussian peak.
+        scale_parameter: MY_S_Siga
+      
+      MY_S_Sigb:
+        id: "68"
+        default: Read at Runtime
+        units: amu/MeV
+        description: >
+          - Width/Variance (b) for the Symmetric Gaussian peak.
+        scale_parameter: MY_S_Sigb
+  
+
+# =========================================================================
+# FILE: kcksyst.dat
+# Perturbation Strategy: INDEPENDENT SCALAR (Categorical)
+#
+# Gilbert-Cameron Level Density Systematics.
+# Parameters are scaling factors applied globally to isotopes based on
+# their stability classification (Stable vs Unstable).
+# =========================================================================
+
+
+kcksyst_params:
+  dat_file: kcksyst.dat
+  perturbation_strategy: independent_scalar
+  isotope_specific: false # The parameters are global scalers, not per-ZAID in the registry sense
+
+  parameters:
+
+  # -------------------------------------------------------------------------
+  # Stable Isotopes - Level Density Parameters
+  # Applied when |Z - Z_stable| < 2 or < 5%
+  # -------------------------------------------------------------------------
+
+      STAB_Pairing:
+        id: "69"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Pairing Energy.
+        scale_parameter: STAB_Pairing
+
+      STAB_Eshell:
+        id: "70"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Shell Correction Energy (E_shell).
+        scale_parameter: STAB_Eshell
+
+      STAB_Ematch:
+        id: "71"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Matching Energy (E_match).
+        scale_parameter: STAB_Ematch
+
+      STAB_astar:
+        id: "72"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Asymptotic Level Density Parameter (a*).
+        scale_parameter: STAB_astar
+
+      STAB_T:
+        id: "73"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Nuclear Temperature (T).
+        scale_parameter: STAB_T
+
+      STAB_E0:
+        id: "74"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Back-shift Energy (E0).
+        scale_parameter: STAB_E0
+
+      STAB_Tsys:
+        id: "75"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Systematic Temperature (T_sys).
+        scale_parameter: STAB_Tsys
+
+      STAB_E0sys:
+        id: "76"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Systematic Back-shift (E0_sys).
+        scale_parameter: STAB_E0sys
+
+  # -------------------------------------------------------------------------
+  # Unstable Isotopes - Level Density Parameters
+  # Applied when |Z - Z_stable| >= 2 and >= 5%
+  # -------------------------------------------------------------------------
+
+      UNSTAB_Pairing:
+        id: "77"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Pairing Energy.
+        scale_parameter: UNSTAB_Pairing
+
+      UNSTAB_Eshell:
+        id: "78"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Shell Correction Energy.
+        scale_parameter: UNSTAB_Eshell
+
+      UNSTAB_Ematch:
+        id: "79"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Matching Energy.
+        scale_parameter: UNSTAB_Ematch
+
+      UNSTAB_astar:
+        id: "80"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Asymptotic Level Density Parameter (a*).
+        scale_parameter: UNSTAB_astar
+
+      UNSTAB_T:
+        id: "81"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Nuclear Temperature.
+        scale_parameter: UNSTAB_T
+
+      UNSTAB_E0:
+        id: "82"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Back-shift Energy.
+        scale_parameter: UNSTAB_E0
+
+      UNSTAB_Tsys:
+        id: "83"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Systematic Temperature.
+        scale_parameter: UNSTAB_Tsys
+
+      UNSTAB_E0sys:
+        id: "84"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Systematic Back-shift.
+        scale_parameter: UNSTAB_E0sys
+
+
+# =========================================================================
+# FILE: deformations.dat
+# Perturbation Strategy: INDEPENDENT SCALAR (Categorical)
+#
+# Finite Range Droplet Model (FRDM95) Ground State Deformations.
+# Parameters are scaling factors applied globally to nuclei based on
+# their stability classification (Stable vs Unstable).
+#
+# Only Beta2 (Quadrupole deformation) is perturbed by this parser.
+# =========================================================================
+
+deformations_params:
+  dat_file: deformations.dat
+  perturbation_strategy: independent_scalar
+  isotope_specific: false # Global categorisation, not per-ZAID in registry
+
+  parameters:
+
+  # -------------------------------------------------------------------------
+  # Stable Nuclei - Deformation Scaling
+  # Applied when |Z - Z_stable| < 2 or < 5%
+  # -------------------------------------------------------------------------
+
+      STAB_beta2:
+        id: "85"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - STABLE Nuclei: Scaling factor for Quadrupole Deformation (beta2).
+          - Affects the shape of the nucleus (prolate/oblate).
+          - Impacts Giant Dipole Resonance (GDR) splitting and level densities.
+        scale_parameter: STAB_beta2
+
+  # -------------------------------------------------------------------------
+  # Unstable Nuclei - Deformation Scaling
+  # Applied when |Z - Z_stable| >= 2 and >= 5%
+  # -------------------------------------------------------------------------
+
+      UNSTAB_beta2:
+        id: "86"
+        default: 1.0
+        units: dimensionless
+        description: >
+          - UNSTABLE Nuclei: Scaling factor for Quadrupole Deformation (beta2).
+          - Affects the shape of the nucleus (prolate/oblate).
+          - Impacts Giant Dipole Resonance (GDR) splitting and level densities.
+        scale_parameter: UNSTAB_beta2
