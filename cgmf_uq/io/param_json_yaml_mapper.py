@@ -76,47 +76,86 @@ class ParameterMapper:
     # =========================================================================
     
     DEFAULT_JSON_TEMPLATE = {
-        "spinscaling": {
-            "alpha_0_scale": 1.0,
-            "alpha_slope_scale": 1.0
-        },
-        "rta": {
-            "scale_factor": 1.0
-        },
-        "tkemodel": {
-            "tke_en_scales": [1.0, 1.0, 1.0, 1.0],
-            "tke_ah_scales": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-            "sigma_tke_scales": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-        },
-        "gstrength_gdr": {
-            "global_PSF_norm": 1.0,
-            "E1_DArigo_E_const1": 1.0,
-            "E1_DArigo_E_const2": 1.0,
-            "E1_DArigo_E_exp": 1.0,
-            "E1_DArigo_W_factor": 1.0,
-            "E1_DArigo_S_coef": 1.0,
-            "E1_DH0_E_const": 1.0,
-            "E1_DH0_E_exp_mass": 1.0,
-            "E1_DH0_E_exp_beta": 1.0,
-            "E1_DH0_W_const": 1.0,
-            "E1_DH0_W_beta_coef": 1.0,
-            "E1_DH0_S_coef": 1.0,
-            "E1_DH1_E_const": 1.0,
-            "E1_DH1_E_exp_mass": 1.0,
-            "E1_DH1_W_const": 1.0,
-            "E1_DH1_W_beta_coef": 1.0,
-            "E1_DH1_S_coef": 1.0,
-            "M1_E_const": 1.0,
-            "M1_E_exp": 1.0,
-            "M1_W_val": 1.0,
-            "M1_S_val": 1.0,
-            "E2_E_const": 1.0,
-            "E2_E_exp": 1.0,
-            "E2_W_const": 1.0,
-            "E2_W_mass_coef": 1.0,
-            "E2_S_coef": 1.0
-        }
+    "spinscaling": {
+        "alpha_0_scale": 1.0,
+        "alpha_slope_scale": 1.0
+    },
+    "rta": {
+        "scale_factor": 1.0
+    },
+    "tkemodel": {
+        "tke_en_scales": [1.0, 1.0, 1.0, 1.0],
+        "tke_ah_scales": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        "sigma_tke_scales": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    },
+    "gstrength_gdr": {
+        "global_PSF_norm": 1.0,
+        "E1_DArigo_E_const1": 1.0,
+        "E1_DArigo_E_const2": 1.0,
+        "E1_DArigo_E_exp": 1.0,
+        "E1_DArigo_W_factor": 1.0,
+        "E1_DArigo_S_coef": 1.0,
+        "E1_DH0_E_const": 1.0,
+        "E1_DH0_E_exp_mass": 1.0,
+        "E1_DH0_E_exp_beta": 1.0,
+        "E1_DH0_W_const": 1.0,
+        "E1_DH0_W_beta_coef": 1.0,
+        "E1_DH0_S_coef": 1.0,
+        "E1_DH1_E_const": 1.0,
+        "E1_DH1_E_exp_mass": 1.0,
+        "E1_DH1_W_const": 1.0,
+        "E1_DH1_W_beta_coef": 1.0,
+        "E1_DH1_S_coef": 1.0,
+        "M1_E_const": 1.0,
+        "M1_E_exp": 1.0,
+        "M1_W_val": 1.0,
+        "M1_S_val": 1.0,
+        "E2_E_const": 1.0,
+        "E2_E_exp": 1.0,
+        "E2_W_const": 1.0,
+        "E2_W_mass_coef": 1.0,
+        "E2_S_coef": 1.0
+    },
+    # ADD THESE THREE SECTIONS:
+    "deformations": {
+        "STAB_beta2": 1.0,
+        "UNSTAB_beta2": 1.0
+    },
+    "kcksyst": {
+        "STAB_Pairing": 1.0,
+        "STAB_Eshell": 1.0,
+        "STAB_Ematch": 1.0,
+        "STAB_astar": 1.0,
+        "STAB_T": 1.0,
+        "STAB_E0": 1.0,
+        "STAB_Tsys": 1.0,
+        "STAB_E0sys": 1.0,
+        "UNSTAB_Pairing": 1.0,
+        "UNSTAB_Eshell": 1.0,
+        "UNSTAB_Ematch": 1.0,
+        "UNSTAB_astar": 1.0,
+        "UNSTAB_T": 1.0,
+        "UNSTAB_E0": 1.0,
+        "UNSTAB_Tsys": 1.0,
+        "UNSTAB_E0sys": 1.0
+    },
+    "yamodel": {
+        "MY_AS1_Wa": 1.0,
+        "MY_AS1_Wb": 1.0,
+        "MY_AS1_Mua": 1.0,
+        "MY_AS1_Mub": 1.0,
+        "MY_AS1_Siga": 1.0,
+        "MY_AS1_Sigb": 1.0,
+        "MY_AS2_Wa": 1.0,
+        "MY_AS2_Wb": 1.0,
+        "MY_AS2_Mua": 1.0,
+        "MY_AS2_Mub": 1.0,
+        "MY_AS2_Siga": 1.0,
+        "MY_AS2_Sigb": 1.0,
+        "MY_S_Siga": 1.0,
+        "MY_S_Sigb": 1.0
     }
+}
     
     def __init__(self, registry_path: Path):
         """
