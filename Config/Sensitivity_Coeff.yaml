@@ -284,3 +284,162 @@ parameters:
     description: Global R_T(A) yield scaling factor
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
+  MY_AS1_Wa:
+    enabled: false
+    description: 1st Asymmetric Peak Weight (a)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS1_Wb:
+    enabled: false
+    description: 1st Asymmetric Peak Weight (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS1_Mua:
+    enabled: false
+    description: 1st Asymmetric Peak Mean Mass (a)
+    scaling_factors: [0.99, 0.995, 1.005, 1.01] # Tighter range for mass centroids to strictly preserve physics
+
+  MY_AS1_Mub:
+    enabled: false
+    description: 1st Asymmetric Peak Mean Mass (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS1_Siga:
+    enabled: false
+    description: 1st Asymmetric Peak Width (a)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS1_Sigb:
+    enabled: false
+    description: 1st Asymmetric Peak Width (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS2_Wa:
+    enabled: false
+    description: 2nd Asymmetric Peak Weight (a)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS2_Wb:
+    enabled: false
+    description: 2nd Asymmetric Peak Weight (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS2_Mua:
+    enabled: false
+    description: 2nd Asymmetric Peak Mean Mass (a)
+    scaling_factors: [0.99, 0.995, 1.005, 1.01]
+
+  MY_AS2_Mub:
+    enabled: false
+    description: 2nd Asymmetric Peak Mean Mass (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS2_Siga:
+    enabled: false
+    description: 2nd Asymmetric Peak Width (a)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_AS2_Sigb:
+    enabled: false
+    description: 2nd Asymmetric Peak Width (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_S_Siga:
+    enabled: false
+    description: Symmetric Peak Width (a)
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  MY_S_Sigb:
+    enabled: false
+    description: Symmetric Peak Width (b) - Energy dependent
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_Pairing:
+    enabled: false
+    description: Stable Nuclei - Pairing Energy Scaling
+    scaling_factors: [0.90, 0.95, 1.05, 1.10] # LD parameters often tolerate wider swings
+
+  STAB_Eshell:
+    enabled: false
+    description: Stable Nuclei - Shell Correction Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_Ematch:
+    enabled: false
+    description: Stable Nuclei - Matching Energy Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_astar:
+    enabled: true
+    description: Stable Nuclei - Asymptotic Level Density (a*) Scaling
+    scaling_factors: [0.90, 0.95, 1.05, 1.10] # Critical parameter for Gamma Multiplicity
+
+  STAB_T:
+    enabled: false
+    description: Stable Nuclei - Temperature Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_E0:
+    enabled: false
+    description: Stable Nuclei - Back-shift Energy E0 Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_Tsys:
+    enabled: false
+    description: Stable Nuclei - Systematic Temp Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_E0sys:
+    enabled: false
+    description: Stable Nuclei - Systematic Back-shift Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_Pairing:
+    enabled: false
+    description: Unstable Nuclei - Pairing Energy Scaling
+    scaling_factors: [0.90, 0.95, 1.05, 1.10]
+
+  UNSTAB_Eshell:
+    enabled: false
+    description: Unstable Nuclei - Shell Correction Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_Ematch:
+    enabled: false
+    description: Unstable Nuclei - Matching Energy Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_astar:
+    enabled: false
+    description: Unstable Nuclei - Asymptotic Level Density (a*) Scaling
+    scaling_factors: [0.90, 0.95, 1.05, 1.10]
+
+  UNSTAB_T:
+    enabled: false
+    description: Unstable Nuclei - Temperature Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_E0:
+    enabled: false
+    description: Unstable Nuclei - Back-shift Energy E0 Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_Tsys:
+    enabled: false
+    description: Unstable Nuclei - Systematic Temp Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_E0sys:
+    enabled: false
+    description: Unstable Nuclei - Systematic Back-shift Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  STAB_beta2:
+    enabled: false
+    description: Stable Nuclei - Quadrupole Deformation (Beta2) Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+
+  UNSTAB_beta2:
+    enabled: false
+    description: Unstable Nuclei - Quadrupole Deformation (Beta2) Scaling
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
