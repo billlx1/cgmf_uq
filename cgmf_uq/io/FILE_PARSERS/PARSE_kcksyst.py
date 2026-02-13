@@ -266,7 +266,8 @@ def parse(filepath: Path, target_zaid: int = 92235, preserve_format: bool = True
 
 def write(filepath: Path, params: Dict[str, float],
           format_info: Optional[Dict[str, Any]] = None,
-          target_zaid: int = 92235) -> None:
+          target_zaid: int = 92235,
+          scale_factors: Optional[Dict[str, float]] = None) -> None:
     """
     Write parameters to kcksyst.dat file.
     
@@ -289,6 +290,8 @@ def write(filepath: Path, params: Dict[str, float],
         params: Dictionary with 16 scaling factors (STAB_* and UNSTAB_* versions)
         format_info: Format information from parse (REQUIRED)
         target_zaid: ZAID (not used, included for API consistency, default 92235)
+        scale_factors: Dict with 16 keys (STAB_Pairing, UNSTAB_Pairing, etc.)
+                      If None, uses values from params dict (all should be 1.0)
     """
     print(f"[WRITE] Writing to file: {filepath}")
     print(f"[WRITE] Target ZAID: {target_zaid} (not used - file contains all isotopes)")
@@ -297,13 +300,22 @@ def write(filepath: Path, params: Dict[str, float],
     if format_info is None:
         raise ValueError("format_info is required for writing kcksyst.dat - cannot reconstruct file structure without it")
     
-    # Validate required parameters (all 16 scaling factors)
+    # Build effective scaling factors
+    # Priority: scale_factors argument > params dict (which should be all 1.0 from parse)
     param_names = KCKSYST_FORMATS['param_names']
+    effective_scales = {}
+    
     for prefix in ('STAB', 'UNSTAB'):
         for name in param_names:
             key = f"{prefix}_{name}"
-            if key not in params:
-                raise ValueError(f"params must contain '{key}' scaling factor")
+            if scale_factors is not None and key in scale_factors:
+                effective_scales[key] = scale_factors[key]
+            elif key in params:
+                effective_scales[key] = params[key]
+            else:
+                raise ValueError(f"Missing scaling factor '{key}' in both scale_factors and params")
+    
+    print(f"[WRITE] Applied {len(effective_scales)} scaling factors (16 total: 8 STAB + 8 UNSTAB)")
     
     # Ensure parent directory exists
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -344,8 +356,8 @@ def write(filepath: Path, params: Dict[str, float],
         scaled_params = {}
         for name in param_names:
             scale_key = f"{prefix}_{name}"
-            scale_factor = params.get(scale_key, 1.0)
-            scaled_params[name] = orig_params[name] * scale_factor
+            scale_value = effective_scales.get(scale_key, 1.0)
+            scaled_params[name] = orig_params[name] * scale_value
         
         # Check if values changed (accounting for floating point precision)
         values_unchanged = all(
@@ -402,4 +414,3 @@ def write(filepath: Path, params: Dict[str, float],
     print(f"[WRITE] Successfully wrote {len(data_lines)} data entries to {filepath}")
     print(f"[WRITE] Modified {modified_count} entries, preserved {unchanged_count} unchanged")
     print(f"[WRITE] Trailing newline: {has_trailing_newline}")
-

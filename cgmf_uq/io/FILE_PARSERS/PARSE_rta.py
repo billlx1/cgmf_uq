@@ -75,20 +75,20 @@ def parse(filepath: Path, target_zaid: int = 92235, preserve_format: bool = True
         if not line.strip():
             if not in_data_section:
                 header_lines.append(line)
-                print(f"[PARSE] Line {line_num}: Empty line (header)")
+                #print(f"[PARSE] Line {line_num}: Empty line (header)")
             else:
                 footer_lines.append(line)
-                print(f"[PARSE] Line {line_num}: Empty line (footer)")
+                #print(f"[PARSE] Line {line_num}: Empty line (footer)")
             continue
         
         # Skip comment lines
         if line.strip().startswith('#'):
             if not in_data_section or parsed_count == 0:
                 header_lines.append(line)
-                print(f"[PARSE] Line {line_num}: Comment (header)")
+                #print(f"[PARSE] Line {line_num}: Comment (header)")
             else:
                 footer_lines.append(line)
-                print(f"[PARSE] Line {line_num}: Comment (footer)")
+                #print(f"[PARSE] Line {line_num}: Comment (footer)")
             continue
         
         # Try to parse as data line using FIXED-WIDTH header extraction

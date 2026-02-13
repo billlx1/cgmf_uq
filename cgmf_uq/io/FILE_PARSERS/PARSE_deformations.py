@@ -97,7 +97,7 @@ def parse(
     filepath: Path,
     target_zaid: int = 92235,
     preserve_format: bool = True
-) -> Tuple[Dict[str, float], Optional[Dict[str, Any]]]:
+) -> Tuple[Dict[str, Any], Optional[Dict[str, Any]]]:
     """
     Parse deformations.dat file.
     
@@ -120,8 +120,11 @@ def parse(
           The target_zaid parameter is included for API consistency but not used.
           All nuclei are parsed and stored in format_info.
     
-    NOTE: Scaling factors in this file are applied based on STABILITY, not ZAID:
-          - 2 total scaling factors: STAB_beta2 and UNSTAB_beta2
+    NOTE: This file contains systematics for ALL nuclei.
+          The params dict is used to pass data through the parse->write pipeline,
+          but the actual beta2 values are stored in format_info, not in params.
+          The params dict structure is determined by the needs of the higher-level
+          dat_parser orchestration layer.
     
     Args:
         filepath: Path to deformations.dat
@@ -129,8 +132,8 @@ def parse(
         preserve_format: If True, return format information for reconstruction
         
     Returns:
-        If preserve_format is False: Dictionary with 2 scaling factor keys (both 1.0)
-        If preserve_format is True: Tuple of (params dict, format dict with file structure)
+        If preserve_format is False: Dictionary with file metadata
+        If preserve_format is True: Tuple of (metadata dict, format dict with file structure)
     """
     print(f"[PARSE] Reading file: {filepath}")
     print(f"[PARSE] Target ZAID: {target_zaid} (not used - file contains all nuclei)")
@@ -139,7 +142,7 @@ def parse(
     if not filepath.exists():
         raise FileNotFoundError(f"File not found: {filepath}")
     
-    params = {}
+    params = {}  # Metadata dict for compatibility
     format_info = {} if preserve_format else None
     
     # Store all file lines for format preservation
@@ -188,7 +191,6 @@ def parse(
         # Handle footer (after data ends)
         if data_started and data_ended:
             footer_lines.append(line)
-            print(f"[PARSE] Line {line_num}: Footer")
             continue
         
         # Empty line signals end of data section
@@ -257,11 +259,6 @@ def parse(
             
             parsed_count += 1
             
-            if beta2 is not None:
-                print(f"[PARSE] Line {line_num}: Z={z:4d}, A={a:4d}, ZAID={zaid:6d} -> {stability_label} (beta2={beta2:8.3f})")
-            else:
-                print(f"[PARSE] Line {line_num}: Z={z:4d}, A={a:4d}, ZAID={zaid:6d} -> {stability_label} (beta2=MISSING)")
-            
         except (ValueError, IndexError) as e:
             # Failed to parse as data
             if data_started:
@@ -276,13 +273,6 @@ def parse(
     print(f"[PARSE] Header lines: {len(header_lines)}")
     print(f"[PARSE] Data entries: {len(data_lines)}")
     print(f"[PARSE] Footer lines: {len(footer_lines)}")
-    
-    # Initialize 2 scaling factors to 1.0
-    # These are the "parameters" for this file (not actual nuclear data)
-    params['STAB_beta2'] = 1.0
-    params['UNSTAB_beta2'] = 1.0
-    
-    print(f"[PARSE] Initialized {len(params)} scaling factors (2 total: STAB_beta2 + UNSTAB_beta2)")
     
     if preserve_format:
         format_info = {
@@ -306,11 +296,16 @@ def parse(
         return params, None
 
 
+# ============================================================================
+# WRITER
+# ============================================================================
+
 def write(
     filepath: Path,
-    params: Dict[str, float],
+    params: Dict[str, Any],
     format_info: Optional[Dict[str, Any]] = None,
-    target_zaid: int = 92235
+    target_zaid: int = 92235,
+    scale_factors: Optional[Dict[str, float]] = None
 ) -> None:
     """
     Write parameters to deformations.dat file.
@@ -329,11 +324,20 @@ def write(
           - STABLE nuclei:   scale by STAB_beta2
           - UNSTABLE nuclei: scale by UNSTAB_beta2
     
+    SIGNATURE MATCHES gstrength_gdr, kcksyst, yamodel:
+        - params: Dict[str, Any] (metadata dict, may be empty)
+        - format_info: Optional[Dict] (required)
+        - target_zaid: int (not used, API consistency)
+        - scale_factors: Optional[Dict[str, float]] with keys:
+            - "STAB_beta2": float (default 1.0)
+            - "UNSTAB_beta2": float (default 1.0)
+    
     Args:
         filepath: Path to write deformations.dat
-        params: Dictionary with 2 scaling factors (STAB_beta2 and UNSTAB_beta2)
+        params: Dictionary (metadata, typically empty for this file type)
         format_info: Format information from parse (REQUIRED)
         target_zaid: ZAID (not used, included for API consistency, default 92235)
+        scale_factors: Dictionary with keys "STAB_beta2" and "UNSTAB_beta2"
     """
     print(f"[WRITE] Writing to file: {filepath}")
     print(f"[WRITE] Target ZAID: {target_zaid} (not used - file contains all nuclei)")
@@ -342,11 +346,14 @@ def write(
     if format_info is None:
         raise ValueError("format_info is required for writing deformations.dat - cannot reconstruct file structure without it")
     
-    # Validate required parameters (2 scaling factors)
-    if 'STAB_beta2' not in params:
-        raise ValueError("params must contain 'STAB_beta2' scaling factor")
-    if 'UNSTAB_beta2' not in params:
-        raise ValueError("params must contain 'UNSTAB_beta2' scaling factor")
+    # Extract scaling factors with defaults
+    if scale_factors is None:
+        scale_factors = {}
+    
+    stab_beta2_scale = scale_factors.get('STAB_beta2', 1.0)
+    unstab_beta2_scale = scale_factors.get('UNSTAB_beta2', 1.0)
+    
+    print(f"[WRITE] Scale factors: STAB_beta2={stab_beta2_scale}, UNSTAB_beta2={unstab_beta2_scale}")
     
     # Ensure parent directory exists
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -358,12 +365,8 @@ def write(
     footer_lines = format_info['footer_lines']
     has_trailing_newline = format_info['_metadata']['has_trailing_newline']
     
-    stab_beta2_scale = params['STAB_beta2']
-    unstab_beta2_scale = params['UNSTAB_beta2']
-    
     print(f"[WRITE] Reconstructing file with {len(header_lines)} header lines, {len(data_lines)} data entries, {len(footer_lines)} footer lines")
     print(f"[WRITE] Using ORIGINAL ORDER (not sorted): {len(data_order)} nuclei")
-    print(f"[WRITE] Scale factors: STAB_beta2={stab_beta2_scale}, UNSTAB_beta2={unstab_beta2_scale}")
     
     column_specs = DEFORMATIONS_FORMATS['columns']
     beta2_start = column_specs['beta2_start']
@@ -410,7 +413,6 @@ def write(
             # Unchanged - preserve original line exactly
             line = entry['original_line']
             unchanged_count += 1
-            print(f"[WRITE] ZAID={zaid:6d}: Unchanged (preserving original)")
         else:
             # Modified - reconstruct line with scaled beta2
             original_line = entry['original_line']
@@ -418,8 +420,15 @@ def write(
             # Keep everything before beta2 column
             line_prefix = original_line[:beta2_start]
             
-            # Format new beta2 value (7 chars, 3 decimals, right-aligned)
-            beta2_formatted = f"{scaled_beta2:7.3f}"
+            # Format new beta2 value (7 chars, 4 decimals, right-aligned)
+            beta2_formatted = f"{scaled_beta2:7.4f}"
+
+            # Sanity check length
+            if len(beta2_formatted) != 7:
+                raise ValueError(
+                    f"ZAID={zaid}: Formatted beta2 '{beta2_formatted}' is not 7 characters "
+                    f"(got {len(beta2_formatted)}). Value {scaled_beta2:.6f} may be out of bounds."
+                )
             
             # Keep everything after beta2 column
             beta2_end = beta2_start + beta2_width

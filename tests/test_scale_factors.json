@@ -1,42 +1,62 @@
 {
-  "gstrength_gdr": {
-    "global_PSF_norm": 1.02,
-    "E1_DArigo_E_const1": 1.02,
-    "E1_DArigo_E_const2": 1.02,
-    "E1_DArigo_E_exp": 1.02,
-    "E1_DArigo_W_factor": 1.02,
-    "E1_DArigo_S_coef": 1.02,
-    "E1_DH0_E_const": 1.02,
-    "E1_DH0_E_exp_mass": 1.02,
-    "E1_DH0_E_exp_beta": 1.02,
-    "E1_DH0_W_const": 1.02,
-    "E1_DH0_W_beta_coef": 1.02,
-    "E1_DH0_S_coef": 1.02,
-    "E1_DH1_E_const": 1.02,
-    "E1_DH1_E_exp_mass": 1.02,
-    "E1_DH1_W_const": 1.02,
-    "E1_DH1_W_beta_coef": 1.02,
-    "E1_DH1_S_coef": 1.02,
-    "M1_E_const": 1.02,
-    "M1_E_exp": 1.02,
-    "M1_W_val": 1.02,
-    "M1_S_val": 1.02,
-    "E2_E_const": 1.02,
-    "E2_E_exp": 1.02,
-    "E2_W_const": 1.02,
-    "E2_W_mass_coef": 1.02,
-    "E2_S_coef": 1.02
-  },
   "spinscaling": {
-    "alpha_0_scale": 1.02,
-    "alpha_slope_scale": 1.02
+    "alpha_0_scale": 1.00,
+    "alpha_slope_scale": 1.00
   },
-  "rta": {
-    "scale_factor": 1.02
-  },
+  "rta": { "scale_factor": 1.00 },
   "tkemodel": {
-    "tke_en_scales": [1.02, 1.02, 1.02, 1.02],
-    "tke_ah_scales": [1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02],
-    "sigma_tke_scales": [1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02]
+    "tke_en_scales": [1.00, 1.00, 1.00, 1.00],
+    "tke_ah_scales": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
+    "sigma_tke_scales": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]
+  },
+  "gstrength_gdr": {
+    "global_PSF_norm": 1.00,
+    "E1_DArigo_E_const1": 1.00, "E1_DArigo_E_const2": 1.00, "E1_DArigo_E_exp": 1.00,
+    "E1_DArigo_W_factor": 1.00, "E1_DArigo_S_coef": 1.00, "E1_DH0_E_const": 1.00,
+    "E1_DH0_E_exp_mass": 1.00, "E1_DH0_E_exp_beta": 1.00, "E1_DH0_W_const": 1.00,
+    "E1_DH0_W_beta_coef": 1.00, "E1_DH0_S_coef": 1.00, "E1_DH1_E_const": 1.00,
+    "E1_DH1_E_exp_mass": 1.00, "E1_DH1_W_const": 1.00, "E1_DH1_W_beta_coef": 1.00,
+    "E1_DH1_S_coef": 1.00, "M1_E_const": 1.00, "M1_E_exp": 1.00, "M1_W_val": 1.00,
+    "M1_S_val": 1.00, "E2_E_const": 1.00, "E2_E_exp": 1.00, "E2_W_const": 1.00,
+    "E2_W_mass_coef": 1.00, "E2_S_coef": 1.00
+  },
+  "deformations": {
+    "STAB_beta2": 1.01e1,
+    "UNSTAB_beta2": 1.01e1
+  },
+  "kcksyst": {
+    "STAB_Pairing": 1.00,
+    "STAB_Eshell": 1.00,
+    "STAB_Ematch": 1.00,
+    "STAB_astar": 1.00,
+    "STAB_T": 1.00,
+    "STAB_E0": 1.00,
+    "STAB_Tsys": 1.00,
+    "STAB_E0sys": 1.00,
+    "UNSTAB_Pairing": 1.00,
+    "UNSTAB_Eshell": 1.00,
+    "UNSTAB_Ematch": 1.00,
+    "UNSTAB_astar": 1.00,
+    "UNSTAB_T": 1.00,
+    "UNSTAB_E0": 1.00,
+    "UNSTAB_Tsys": 1.00,
+    "UNSTAB_E0sys": 1.00
+  },
+  "yamodel": {
+    "MY_AS1_Wa": 1.00,
+    "MY_AS1_Wb": 1.00,
+    "MY_AS1_Mua": 1.00,
+    "MY_AS1_Mub": 1.00,
+    "MY_AS1_Siga": 1.00,
+    "MY_AS1_Sigb": 1.00,
+    "MY_AS2_Wa": 1.00,
+    "MY_AS2_Wb": 1.00,
+    "MY_AS2_Mua": 1.00,
+    "MY_AS2_Mub": 1.00,
+    "MY_AS2_Siga": 1.00,
+    "MY_AS2_Sigb": 1.00,
+    "MY_S_Siga": 1.00,
+    "MY_S_Sigb": 1.00
   }
 }
+

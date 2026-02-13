@@ -1,0 +1,11 @@
+# Dry test output
+DryTest_Results/
+
+# Python cache directories
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Optional: ignore all cache folders recursively
+**/__pycache__/
+
