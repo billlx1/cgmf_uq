@@ -159,6 +159,59 @@ duration_sim=$((end_time_sim - start_time_sim))
 HIST_SIZE=$(du -h "$HIST_FILE" | cut -f1)
 echo "✓ History file: $HIST_FILE ($HIST_SIZE, ${duration_sim}s)"
 
+#----------------------------------------------------
+# Step 2-Post Selective Cleanup - Keep only perturbed files
+#----------------------------------------------------
+echo ""
+echo ">> Cleaning up unmodified data files..."
+if [ -d "$DAT_DIR" ]; then
+    SIZE_BEFORE=$(du -sh "$DAT_DIR" 2>/dev/null | cut -f1 || echo "unknown")
+    
+    # Define the 7-9 critical files that might be perturbed
+    # These correspond to your FILE_PARSERS
+    CRITICAL_FILES=(
+        "tkemodel.dat"
+        "yamodel.dat"
+        "kcksyst.dat"
+        "deformations.dat"
+        "rta.dat"
+        "spinscalingmodel.dat"
+        "gstrength_gdr_params.dat"
+    )
+    
+    # Move to temporary location
+    KEEP_DIR="${DAT_DIR}_keep"
+    mkdir -p "$KEEP_DIR"
+    
+    # Copy only critical files
+    FILES_KEPT=0
+    for file in "${CRITICAL_FILES[@]}"; do
+        if [ -f "$DAT_DIR/$file" ]; then
+            cp -p "$DAT_DIR/$file" "$KEEP_DIR/"
+            FILES_KEPT=$((FILES_KEPT + 1))
+        fi
+    done
+    
+    # Count before deletion
+    FILES_TOTAL=$(find "$DAT_DIR" -name "*.dat" 2>/dev/null | wc -l)
+    FILES_DELETED=$((FILES_TOTAL - FILES_KEPT))
+    
+    # Replace dat_files with kept files only
+    rm -rf "$DAT_DIR"
+    mv "$KEEP_DIR" "$DAT_DIR"
+    
+    SIZE_AFTER=$(du -sh "$DAT_DIR" 2>/dev/null | cut -f1 || echo "unknown")
+    
+    echo "✓ Selective cleanup complete"
+    echo "  Kept:    $FILES_KEPT critical files"
+    echo "  Removed: $FILES_DELETED unmodified files"
+    echo "  Before:  $SIZE_BEFORE → After: $SIZE_AFTER"
+else
+    echo "⚠ No .dat directory found to clean"
+fi
+
+
+
 #====================================================
 # Step 3: Post-Process Results
 #====================================================

@@ -15,97 +15,97 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]   # relative to default 1.0
 
   E1_DArigo_E_const1:
-    enabled: false
+    enabled: true
     description: DArigo E1 peak energy constant term 1
     scaling_factors: [0.95, 0.975, 1.025, 1.05]  # e.g., ±4% around default
 
   E1_DArigo_E_const2:
-    enabled: false
+    enabled: true
     description: DArigo E1 peak energy constant term 2
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DArigo_E_exp:
-    enabled: false
+    enabled: true
     description: DArigo E1 peak energy mass exponent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DArigo_W_factor:
-    enabled: false
+    enabled: true
     description: DArigo E1 width factor
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DArigo_S_coef:
-    enabled: false
+    enabled: true
     description: DArigo E1 XS coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_E_const:
-    enabled: false
+    enabled: true
     description: Double Hump 0 E1 energy constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_E_exp_mass:
-    enabled: false
+    enabled: true
     description: Double Hump 0 E1 mass exponent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_E_exp_beta:
-    enabled: false
+    enabled: true
     description: Double Hump 0 E1 beta exponent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_W_const:
-    enabled: false
+    enabled: true
     description: Double Hump 0 width constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_W_beta_coef:
-    enabled: false
+    enabled: true
     description: Double Hump 0 beta width coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH0_S_coef:
-    enabled: false
+    enabled: true
     description: Double Hump 0 XS coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH1_E_const:
-    enabled: false
+    enabled: true
     description: Double Hump 1 E1 energy constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH1_E_exp_mass:
-    enabled: false
+    enabled: true
     description: Double Hump 1 mass exponent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH1_W_const:
-    enabled: false
+    enabled: true
     description: Double Hump 1 width constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH1_W_beta_coef:
-    enabled: false
+    enabled: true
     description: Double Hump 1 beta width coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DH1_S_coef:
-    enabled: false
+    enabled: true
     description: Double Hump 1 XS coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   M1_E_const:
-    enabled: false
+    enabled: true
     description: M1 resonance energy constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   M1_E_exp:
-    enabled: false
+    enabled: true
     description: M1 mass exponent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   M1_W_val:
-    enabled: false
+    enabled: true
     description: M1 damping width
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -115,7 +115,7 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E2_E_const:
-    enabled: false
+    enabled: true
     description: E2 resonance energy constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -125,17 +125,17 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E2_W_const:
-    enabled: false
+    enabled: true
     description: E2 width constant
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E2_W_mass_coef:
-    enabled: false
+    enabled: true
     description: E2 mass-dependent width coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E2_S_coef:
-    enabled: false
+    enabled: true
     description: E2 XS coefficient
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -150,7 +150,7 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_en_a:
-    enabled: false
+    enabled: true
     description: TKE(En) intercept term a
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -160,27 +160,27 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_en_b:
-    enabled: false
+    enabled: true
     description: TKE(En) low-energy slope b
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_en_d:
-    enabled: false
+    enabled: true
     description: TKE(En) high-energy slope d
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_a0:
-    enabled: false
+    enabled: true
     description: TKE(Ah) centering mass a0
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_amax:
-    enabled: false
+    enabled: true
     description: TKE(Ah) max mass cutoff
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c0:
-    enabled: false
+    enabled: true
     description: TKE(Ah) constant term (peak energy)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -190,37 +190,37 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c2:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 2nd order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c3:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 3rd order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c4:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 4th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c5:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 5th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c6:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 6th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c7:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 7th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c8:
-    enabled: false
+    enabled: true
     description: TKE(Ah) 8th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -230,52 +230,52 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_amax:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) max mass cutoff
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c0:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) constant term (base width)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c1:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 1st order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c2:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 2nd order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c3:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 3rd order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c4:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 4th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c5:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 5th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c6:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 6th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c7:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 7th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c8:
-    enabled: false
+    enabled: true
     description: Sigma TKE(Ah) 8th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
@@ -285,87 +285,87 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS1_Wa:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Weight (a)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS1_Wb:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Weight (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS1_Mua:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Mean Mass (a)
-    scaling_factors: [0.99, 0.995, 1.005, 1.01] # Tighter range for mass centroids to strictly preserve physics
+    scaling_factors: [0.99, 0.995, 1.005, 1.01]
 
   MY_AS1_Mub:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Mean Mass (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS1_Siga:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Width (a)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS1_Sigb:
-    enabled: false
+    enabled: true
     description: 1st Asymmetric Peak Width (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS2_Wa:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Weight (a)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS2_Wb:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Weight (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS2_Mua:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Mean Mass (a)
     scaling_factors: [0.99, 0.995, 1.005, 1.01]
 
   MY_AS2_Mub:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Mean Mass (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS2_Siga:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Width (a)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_AS2_Sigb:
-    enabled: false
+    enabled: true
     description: 2nd Asymmetric Peak Width (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_S_Siga:
-    enabled: false
+    enabled: true
     description: Symmetric Peak Width (a)
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   MY_S_Sigb:
-    enabled: false
+    enabled: true
     description: Symmetric Peak Width (b) - Energy dependent
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_Pairing:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Pairing Energy Scaling
     scaling_factors: [0.90, 0.95, 1.05, 1.10] # LD parameters often tolerate wider swings
 
   STAB_Eshell:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Shell Correction Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_Ematch:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Matching Energy Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -375,71 +375,71 @@ parameters:
     scaling_factors: [0.90, 0.95, 1.05, 1.10] # Critical parameter for Gamma Multiplicity
 
   STAB_T:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Temperature Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_E0:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Back-shift Energy E0 Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_Tsys:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Systematic Temp Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_E0sys:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Systematic Back-shift Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_Pairing:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Pairing Energy Scaling
     scaling_factors: [0.90, 0.95, 1.05, 1.10]
 
   UNSTAB_Eshell:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Shell Correction Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_Ematch:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Matching Energy Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_astar:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Asymptotic Level Density (a*) Scaling
     scaling_factors: [0.90, 0.95, 1.05, 1.10]
 
   UNSTAB_T:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Temperature Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_E0:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Back-shift Energy E0 Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_Tsys:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Systematic Temp Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_E0sys:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Systematic Back-shift Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_beta2:
-    enabled: false
+    enabled: true
     description: Stable Nuclei - Quadrupole Deformation (Beta2) Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_beta2:
-    enabled: false
+    enabled: true
     description: Unstable Nuclei - Quadrupole Deformation (Beta2) Scaling
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
