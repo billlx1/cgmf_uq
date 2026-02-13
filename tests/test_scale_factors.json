@@ -21,8 +21,8 @@
     "E2_W_mass_coef": 1.00, "E2_S_coef": 1.00
   },
   "deformations": {
-    "STAB_beta2": 1.01e1,
-    "UNSTAB_beta2": 1.01e1
+    "STAB_beta2": 1.00,
+    "UNSTAB_beta2": 1.00
   },
   "kcksyst": {
     "STAB_Pairing": 1.00,

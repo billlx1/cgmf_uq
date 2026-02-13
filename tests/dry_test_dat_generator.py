@@ -25,6 +25,9 @@ TARGET_FILES = [
     "spinscalingmodel.dat",
     "rta.dat",
     "tkemodel.dat",
+    "yamodel.dat",
+    "kcksyst.dat",
+    "deformations.dat",
 ]
 
 DEFAULT_SOURCE_DIR = PROJECT_ROOT / "CGMF_Data_Default"

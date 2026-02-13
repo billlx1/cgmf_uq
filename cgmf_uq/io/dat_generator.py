@@ -51,18 +51,51 @@ DEFAULT_SCALES = {
         'M1_W_val', 'M1_S_val', 'E2_E_const', 'E2_E_exp', 'E2_W_const',
         'E2_W_mass_coef', 'E2_S_coef'
     ]},
+    
     'spinscaling': {
         'alpha_0_scale': 1.0,
         'alpha_slope_scale': 1.0,
     },
+    
     'rta': {
         'scale_factor': 1.0,
     },
+    
     'tkemodel': {
         'tke_en_scales': [1.0] * 4,
         'tke_ah_scales': [1.0] * 11,
         'sigma_tke_scales': [1.0] * 11,
+    },
+    
+    'yamodel': {
+        # 14 individual parameters
+        'MY_AS1_Wa': 1.0, 'MY_AS1_Wb': 1.0,
+        'MY_AS1_Mua': 1.0, 'MY_AS1_Mub': 1.0,
+        'MY_AS1_Siga': 1.0, 'MY_AS1_Sigb': 1.0,
+        'MY_AS2_Wa': 1.0, 'MY_AS2_Wb': 1.0,
+        'MY_AS2_Mua': 1.0, 'MY_AS2_Mub': 1.0,
+        'MY_AS2_Siga': 1.0, 'MY_AS2_Sigb': 1.0,
+        'MY_S_Siga': 1.0, 'MY_S_Sigb': 1.0
+    },
+    
+    'kcksyst': {
+        # 16 stability-based factors (8 params × 2 classes)
+        'STAB_Pairing': 1.0, 'UNSTAB_Pairing': 1.0,
+        'STAB_Eshell': 1.0, 'UNSTAB_Eshell': 1.0,
+        'STAB_Ematch': 1.0, 'UNSTAB_Ematch': 1.0,
+        'STAB_astar': 1.0, 'UNSTAB_astar': 1.0,
+        'STAB_T': 1.0, 'UNSTAB_T': 1.0,
+        'STAB_E0': 1.0, 'UNSTAB_E0': 1.0,
+        'STAB_Tsys': 1.0, 'UNSTAB_Tsys': 1.0,
+        'STAB_E0sys': 1.0, 'UNSTAB_E0sys': 1.0,
+    },
+    
+    'deformations': {
+        # 2 stability-based factors
+        'STAB_beta2': 1.0,
+        'UNSTAB_beta2': 1.0,
     }
+    
 }
 
 # Files that need to be modified (all others are copied verbatim)
@@ -70,7 +103,10 @@ TARGET_FILES = [
     'gstrength_gdr_params.dat',
     'spinscalingmodel.dat',
     'rta.dat',
-    'tkemodel.dat'
+    'tkemodel.dat',
+    'yamodel.dat',
+    'kcksyst.dat',
+    'deformations.dat'
 ]
 
 
@@ -207,6 +243,15 @@ def _process_target_file(
         kwargs['tke_en_scales'] = scale_factors['tkemodel']['tke_en_scales']
         kwargs['tke_ah_scales'] = scale_factors['tkemodel']['tke_ah_scales']
         kwargs['sigma_tke_scales'] = scale_factors['tkemodel']['sigma_tke_scales']
+        
+    elif file_type == 'yamodel':
+        kwargs['scale_factors'] = scale_factors['yamodel']
+    
+    elif file_type == 'kcksyst':
+        kwargs['scale_factors'] = scale_factors['kcksyst']
+    
+    elif file_type == 'deformations':
+        kwargs['scale_factors'] = scale_factors['deformations']
     
     write_dat_file(output_file, params, format_info, **kwargs)
     
@@ -225,13 +270,22 @@ def _get_file_type(filename: str) -> str:
         return 'rta'
     elif 'tkemodel' in filename_lower:
         return 'tkemodel'
+    elif 'yamodel' in filename_lower:
+        return 'yamodel'
+    elif 'kcksyst' in filename_lower:
+        return 'kcksyst'
+    elif 'deformations' in filename_lower:
+        return 'deformations'
     else:
         raise ValueError(f"Unknown file type: {filename}")
 
 
 def _validate_scale_factors(scale_factors: Dict[str, Any]) -> None:
     """Validate structure of scale_factors dictionary."""
-    required_keys = {'gstrength_gdr', 'spinscaling', 'rta', 'tkemodel'}
+    required_keys = {
+        'gstrength_gdr', 'spinscaling', 'rta', 'tkemodel',
+        'yamodel', 'kcksyst', 'deformations'
+    }
     
     if not all(k in scale_factors for k in required_keys):
         missing = required_keys - set(scale_factors.keys())
@@ -260,6 +314,23 @@ def _validate_scale_factors(scale_factors: Dict[str, Any]) -> None:
         raise ValueError("tkemodel.tke_ah_scales must have 11 values")
     if len(tke.get('sigma_tke_scales', [])) != 11:
         raise ValueError("tkemodel.sigma_tke_scales must have 11 values")
+    
+    # Validate yamodel has 14 parameters
+    if len(scale_factors['yamodel']) != 14:
+        raise ValueError(
+            f"yamodel must have 14 parameters, got {len(scale_factors['yamodel'])}"
+        )
+    
+    # Validate kcksyst has 16 parameters (8 STAB + 8 UNSTAB)
+    if len(scale_factors['kcksyst']) != 16:
+        raise ValueError(
+            f"kcksyst must have 16 parameters, got {len(scale_factors['kcksyst'])}"
+        )
+    
+    # Validate deformations has 2 parameters
+    deformations_keys = {'STAB_beta2', 'UNSTAB_beta2'}
+    if set(scale_factors['deformations'].keys()) != deformations_keys:
+        raise ValueError(f"deformations must have keys: {deformations_keys}")
 
 
 # ============================================================================
