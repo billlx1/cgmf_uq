@@ -12,12 +12,12 @@ parameters:
   global_PSF_norm:
     enabled: true
     description: Global photon strength function normalization
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]   # relative to default 1.0
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DArigo_E_const1:
     enabled: true
     description: DArigo E1 peak energy constant term 1
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]  # e.g., ±4% around default
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   E1_DArigo_E_const2:
     enabled: true
@@ -215,12 +215,12 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c7:
-    enabled: true
+    enabled: false
     description: TKE(Ah) 7th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   tke_ah_c8:
-    enabled: true
+    enabled: false
     description: TKE(Ah) 8th order coef
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
@@ -260,22 +260,22 @@ parameters:
     scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   Stke_ah_c5:
-    enabled: true
+    enabled: false
     description: Sigma TKE(Ah) 5th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c6:
-    enabled: true
+    enabled: false
     description: Sigma TKE(Ah) 6th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c7:
-    enabled: true
+    enabled: false
     description: Sigma TKE(Ah) 7th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
   Stke_ah_c8:
-    enabled: true
+    enabled: false
     description: Sigma TKE(Ah) 8th order coef
     scaling_factors: [0.9, 0.95, 1.05, 1.1]
 
@@ -287,77 +287,77 @@ parameters:
   MY_AS1_Wa:
     enabled: true
     description: 1st Asymmetric Peak Weight (a)
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS1_Wb:
     enabled: true
     description: 1st Asymmetric Peak Weight (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS1_Mua:
     enabled: true
     description: 1st Asymmetric Peak Mean Mass (a)
-    scaling_factors: [0.99, 0.995, 1.005, 1.01]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS1_Mub:
     enabled: true
     description: 1st Asymmetric Peak Mean Mass (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS1_Siga:
     enabled: true
     description: 1st Asymmetric Peak Width (a)
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS1_Sigb:
     enabled: true
     description: 1st Asymmetric Peak Width (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Wa:
     enabled: true
     description: 2nd Asymmetric Peak Weight (a)
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Wb:
     enabled: true
     description: 2nd Asymmetric Peak Weight (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Mua:
     enabled: true
     description: 2nd Asymmetric Peak Mean Mass (a)
-    scaling_factors: [0.99, 0.995, 1.005, 1.01]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Mub:
     enabled: true
     description: 2nd Asymmetric Peak Mean Mass (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Siga:
     enabled: true
     description: 2nd Asymmetric Peak Width (a)
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_AS2_Sigb:
     enabled: true
     description: 2nd Asymmetric Peak Width (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_S_Siga:
     enabled: true
     description: Symmetric Peak Width (a)
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   MY_S_Sigb:
     enabled: true
     description: Symmetric Peak Width (b) - Energy dependent
-    scaling_factors: [0.95, 0.975, 1.025, 1.05]
+    scaling_factors: [0.98, 0.99, 1.01, 1.02]
 
   STAB_Pairing:
     enabled: true
     description: Stable Nuclei - Pairing Energy Scaling
-    scaling_factors: [0.90, 0.95, 1.05, 1.10] # LD parameters often tolerate wider swings
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_Eshell:
     enabled: true
@@ -372,7 +372,7 @@ parameters:
   STAB_astar:
     enabled: true
     description: Stable Nuclei - Asymptotic Level Density (a*) Scaling
-    scaling_factors: [0.90, 0.95, 1.05, 1.10] # Critical parameter for Gamma Multiplicity
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   STAB_T:
     enabled: true
@@ -412,7 +412,7 @@ parameters:
   UNSTAB_astar:
     enabled: true
     description: Unstable Nuclei - Asymptotic Level Density (a*) Scaling
-    scaling_factors: [0.90, 0.95, 1.05, 1.10]
+    scaling_factors: [0.95, 0.975, 1.025, 1.05]
 
   UNSTAB_T:
     enabled: true

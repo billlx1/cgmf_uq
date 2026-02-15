@@ -2,6 +2,10 @@
 
 CGMF parses each of these parameter sets differently, some of the parsers are robust to changes in whitespace, however, many of them are collumn sensitive. These should be documented due to possible rounding errors during sensitivity scoping. Additionally, this could constrain the acceptable values that can be varied over during the sampling portion of this study.
 
+Rounding errors at very small initial values have been observed in `deformations.dat` & `spinscaling.dat` so far, this effect has not yet been observed in kcksyst.dat` but is theoretically possible under certain conditions.
+
+In terms of parser stability, some are fundamentally robust while some may cause CGMF to fail internally. The parsers are grouped as follows:
+
  ### Robust Parsers:
  
  - `gstrength_gdr_params.dat`
@@ -15,7 +19,6 @@ CGMF parses each of these parameter sets differently, some of the parsers are ro
  - `kcksyst.dat`
  - `deformations.dat`
 
-As well as rounding errors this constrains the values these scaling factors can be perturbed over.
 
 `kcksyst.dat` has been tested with all scaling factors set to 10 and this runs. Above this things get extremely chaotic. -10 has also been tested, negative scaling factors are not recommended. If we need access to higher scaling factors, we may need to re-write the CGMF parsers
 

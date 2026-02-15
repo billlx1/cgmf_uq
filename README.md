@@ -18,20 +18,27 @@ Model parameters are adjusted by manipulating .dat files within /CGMF/data
 
 This project includes the following specific `.dat` files at the time of writing:
 
-- `gstrength_gdr_params.dat` 
-   Gamma strength function and giant dipole resonance parameters
-- `tkemodel.dat`
-   TKE parameterisation against neutron energy and fragment mass
-- `spinscalingmodel.dat`
-   Spin cutoff parameters in fragment angular momenta distributions
-- `rta.dat` 
-   Light-Heavy fragment temperature ratios
-- `yamodel.dat` 
-   Fragment mass yield parameterisations
-- `kcksyst.dat`
-   Fragment level density parameterisation 
-- `deformations.dat`
-   Beta2 deformations of nuclei.
+- **`gstrength_gdr_params.dat`**  
+  Gamma strength function and giant dipole resonance parameters
+
+- **`tkemodel.dat`**  
+  TKE parameterisation against neutron energy and fragment mass
+
+- **`spinscalingmodel.dat`**  
+  Spin cutoff parameters in fragment angular momenta distributions
+
+- **`rta.dat`**  
+  Light–Heavy fragment temperature ratios
+
+- **`yamodel.dat`**  
+  Fragment mass yield parameterisations
+
+- **`kcksyst.dat`**  
+  Fragment level density parameterisation
+
+- **`deformations.dat`**  
+  Beta2 deformations of nuclei
+
 
 ## Project Phases
 
@@ -45,6 +52,8 @@ Full worflow performed in two phases:
 Comming Soon.
 
 ## Results
+
+Typical output of per-run post-processing script for 100 000  events of thermal neutron induced fission of 235-U
 
 ![Example PNG output from per-task post processing script](Docs_Images/Post_Proc_Ex.png)
 
@@ -95,5 +104,7 @@ PROJECT_ROOT/
     ├── dry_test_dat_generator.py
     ├── dry_test_dat_parser.py
     ├── dry_test_manifest_validation.py
+    ├── verify_dat_perturbations.py
+    ├── verify_post_procs.py
     └── test_scale_factors.json
 ```
