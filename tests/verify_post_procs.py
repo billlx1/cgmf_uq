@@ -1,4 +1,3 @@
-cat test.py 
 #!/usr/bin/env python3
 """
 Verify uniqueness of CGMF post-processing results across sensitivity sweep tasks.
@@ -59,8 +58,8 @@ def parse_results_fields(results: str) -> Dict[str, str]:
     
     # Extract key-value pairs
     patterns = {
-        'total_gammas': r'Total Gammas:\s*(\d+)',
-        'total_neutrons': r'Total Neutrons:\s*(\d+)',
+	'total_gammas': r'Total Gammas:\s*([\d,]+)',      # ← Allow commas
+	'total_neutrons': r'Total Neutrons:\s*([\d,]+)',  # ← Allow commas
         'gamma_mult': r'ν̄ \(Gamma Multiplicity\):\s*([\d.]+)\s*γ/fission',
         'neutron_mult': r'ν̄ \(Neutron Multiplicity\):\s*([\d.]+)\s*n/fission',
         'single_gamma_e': r'ε̄ \(Single Gamma Energy\):\s*([\d.]+)\s*MeV',

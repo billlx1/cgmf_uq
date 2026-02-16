@@ -717,7 +717,7 @@ yamodel_params:
         units: amu/MeV
         description: >
           - Mean mass centroid (b) for the 1st Asymmetric Gaussian peak.
-        scale_parameter: MY_AS1_Mua
+        scale_parameter: MY_AS1_Mub
   
       MY_AS1_Siga:
         id: "59"
