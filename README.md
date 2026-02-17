@@ -68,7 +68,7 @@ Sensitivity coefficients of model parameters with respect to prompt fission neut
 **Parameter Sensitivity Testing**
 
 copy `run_submit_sensitivity.sh` to your run directory. This is a simple wrapper wich can be used to easily input the arguments of `submit_sensitivity.py`, which include the following:
-- `--registry           Path to Parameter_Registry.yaml
+- `--registry           Path to Parameter_Registry.yaml`
 - `--sensitivity        Path to Sensitivity_Coeff.yaml`
 - `--output             Path to desired results directory` 
 - `--project-dir        Path to PROJECT_ROOT` 
@@ -94,7 +94,7 @@ Verification and analysis can then be performed used by copying `run_verificatio
 ```
 PROJECT_ROOT/
 ├── README.md
-├── CGMF_Data_Default/           # Baseline .dat files (Source of Truth)
+├── CGMF_Data_Default/           # Baseline .dat files
 │   ├── deformations.dat
 │   ├── gstrength_gdr_params.dat
 │   ├── kcksyst.dat
