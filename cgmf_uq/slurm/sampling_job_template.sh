@@ -213,6 +213,8 @@ if [ -d "$DAT_DIR" ]; then
     echo "  Kept:    $FILES_KEPT critical files"
     echo "  Removed: $FILES_DELETED unmodified files"
     echo "  Before:  $SIZE_BEFORE → After: $SIZE_AFTER"
+    echo "  Contents:"
+    ls -1 "$DAT_DIR"
 else
     echo "⚠ No .dat directory found to clean"
 fi
