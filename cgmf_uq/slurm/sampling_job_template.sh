@@ -188,6 +188,25 @@ if [ -d "$DAT_DIR" ]; then
     rm -rf "$DAT_DIR"
     mv "$KEEP_DIR" "$DAT_DIR"
 
+    # Ensure all critical files are present (backfill from default data if missing)
+    MISSING_FILES=0
+    for file in "${CRITICAL_FILES[@]}"; do
+        if [ ! -f "$DAT_DIR/$file" ]; then
+            if [ -f "$CGMF_DEFAULT_DATA/$file" ]; then
+                cp -p "$CGMF_DEFAULT_DATA/$file" "$DAT_DIR/"
+                echo "⚠ Missing $file; restored from CGMF_DEFAULT_DATA"
+            else
+                echo "ERROR: Missing critical file '$file' and no default found"
+                MISSING_FILES=$((MISSING_FILES + 1))
+            fi
+        fi
+    done
+
+    if [ "$MISSING_FILES" -gt 0 ]; then
+        echo "ERROR: One or more critical .dat files could not be restored"
+        exit 1
+    fi
+
     SIZE_AFTER=$(du -sh "$DAT_DIR" 2>/dev/null | cut -f1 || echo "unknown")
 
     echo "✓ Selective cleanup complete"

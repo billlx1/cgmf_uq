@@ -58,9 +58,9 @@ def parse_results_fields(results: str) -> Dict[str, str]:
     
     # Extract key-value pairs
     patterns = {
-	'total_gammas': r'Total Gammas:\s*([\d,]+)',      # ← Allow commas
-	'total_neutrons': r'Total Neutrons:\s*([\d,]+)',  # ← Allow commas
-        'gamma_mult': r'ν̄ \(Gamma Multiplicity\):\s*([\d.]+)\s*γ/fission',
+        'total_gammas': r'Total Gammas:\s*([\d,]+)',      # ← Allow commas
+        'total_neutrons': r'Total Neutrons:\s*([\d,]+)',  # ← Allow commas        
+	'gamma_mult': r'ν̄ \(Gamma Multiplicity\):\s*([\d.]+)\s*γ/fission',
         'neutron_mult': r'ν̄ \(Neutron Multiplicity\):\s*([\d.]+)\s*n/fission',
         'single_gamma_e': r'ε̄ \(Single Gamma Energy\):\s*([\d.]+)\s*MeV',
         'total_gamma_e': r'ε̄ \(Total Gamma Energy\):\s*([\d.]+)\s*MeV/fission',
