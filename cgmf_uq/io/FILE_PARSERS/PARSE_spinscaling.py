@@ -256,8 +256,8 @@ def write(filepath: Path, params: Dict[str, float],
     # Define format specifications for consistent spacing
     SPINSCALING_FORMATS = {
         'zaid': '{:>6}',        # Width 6, handles negative SF (e.g., -98252)
-        'alpha_0': '{:>5.2f}',  # Width 5, 2 decimals
-        'alpha_slope': '{:>6.3f}'  # Width 6, 3 decimals
+        'alpha_0': '{:>12.8f}',  # Width 5, 2 decimals
+        'alpha_slope': '{:>12.8f}'  # Width 6, 3 decimals
     }
     
     # Write data section IN ORIGINAL ORDER (not sorted!)

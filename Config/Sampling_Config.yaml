@@ -1,0 +1,77 @@
+# -------------------------------------------------------------------------
+# Sampling Study Configuration (Phase II)
+# -------------------------------------------------------------------------
+# Required:
+# - num_samples: number of random samples to generate
+# - seed: random seed for reproducibility (optional but recommended)
+# - sampling_info_dir: base directory for sampling auxiliary files (json/npy/custom)
+# - groups: list of sampler blocks
+#
+# Group fields:
+# - name: unique label
+# - enabled: true/false (optional, defaults to true)
+# - parameters: list OR dict:
+#     * list: ["param_a", "param_b"]
+#     * dict: {param_a: {enabled: true}, param_b: {enabled: false}}
+#     * ordering matters for mvn_cholesky
+# - sampler: independent_gaussian | mvn_cholesky | custom
+# - value_space: scale | absolute
+# - params: sampler-specific
+#
+# Sampler params:
+# - independent_gaussian:
+#     stddev: float | list | {param: float}
+#     mean:   float | list | {param: float} (optional)
+# - mvn_cholesky:
+#     json_file: pretty-printed MVN JSON with keys:
+#       description, n_params, param_labels, gauss_mu, gauss_chol
+#     OR mu_file + chol_file (npy/npz/json/txt/csv)
+#     Optional for npz: mu_key, chol_key
+# - custom:
+#     custom_module: path to .py module
+#     custom_function: function name (default: sample)
+#     signature: sample(n, rng, parameters, params) -> dict or (n,p) array
+#
+# Notes:
+# - value_space: absolute means parameters are physical values and will be
+#   converted to scale factors using defaults from CGMF_Data_Default/*.dat
+# - if a default is zero, mvn_cholesky will fall back to gauss_mu for scaling
+#   (otherwise generation fails with a clear error)
+# -------------------------------------------------------------------------
+
+num_samples: 100
+seed: 12345
+sampling_info_dir: ../tests
+
+groups:
+  - name: gstrength_simple
+    enabled: false
+    parameters:
+      - global_PSF_norm
+    sampler: independent_gaussian
+    value_space: scale
+    params:
+      stddev: 0.05
+
+  # Example YAmodel block (expects mu/chol files in sampling_info_dir)
+  - name: yamodel_correlated
+    enabled: true
+    parameters:
+      - MY_AS1_Wa
+      - MY_AS1_Wb
+      - MY_AS1_Mua
+      - MY_AS1_Mub
+      - MY_AS1_Siga
+      - MY_AS1_Sigb
+      - MY_AS2_Wa
+      - MY_AS2_Wb
+      - MY_AS2_Mua
+      - MY_AS2_Mub
+      - MY_AS2_Siga
+      - MY_AS2_Sigb
+      - MY_S_Siga
+      - MY_S_Sigb
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: Example_YAM_Sample.json

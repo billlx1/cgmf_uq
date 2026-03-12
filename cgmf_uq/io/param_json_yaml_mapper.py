@@ -398,6 +398,17 @@ class ParameterMapper:
                     return dat_group['parameters'][param_name]
         
         raise ValueError(f"Parameter {param_name} found in lookup but not in registry")
+
+    def get_parameter_default(self, param_name: str) -> float:
+        """
+        Retrieve the default (physical) value for a parameter from the registry.
+
+        This is used when converting absolute-value samples to scale factors.
+        """
+        info = self.get_parameter_info(param_name)
+        if "default" not in info:
+            raise ValueError(f"Parameter {param_name} has no 'default' in registry")
+        return float(info["default"])
     
     def list_all_parameters(self) -> list:
         """
@@ -412,4 +423,3 @@ class ParameterMapper:
             Sorted list of all registry parameter names
         """
         return sorted(self.param_to_json.keys())
-

@@ -3,6 +3,7 @@ DryTest_Results/
 
 # Python cache directories
 __pycache__/
+.DS_Store
 *.py[cod]
 *$py.class
 

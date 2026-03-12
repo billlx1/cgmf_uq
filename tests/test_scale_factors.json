@@ -1,62 +1,62 @@
 {
   "spinscaling": {
-    "alpha_0_scale": 1.00,
-    "alpha_slope_scale": 1.00
+    "alpha_0_scale": 1.212121212,
+    "alpha_slope_scale": 1.2121212
   },
-  "rta": { "scale_factor": 1.00 },
+  "rta": { "scale_factor": 1.212121212 },
   "tkemodel": {
-    "tke_en_scales": [1.00, 1.00, 1.00, 1.00],
-    "tke_ah_scales": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
-    "sigma_tke_scales": [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]
+    "tke_en_scales": [1.212121212, 1.212121212, 1.212121212, 1.212121212],
+    "tke_ah_scales": [1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212],
+    "sigma_tke_scales": [1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212, 1.212121212]
   },
   "gstrength_gdr": {
-    "global_PSF_norm": 1.00,
-    "E1_DArigo_E_const1": 1.00, "E1_DArigo_E_const2": 1.00, "E1_DArigo_E_exp": 1.00,
-    "E1_DArigo_W_factor": 1.00, "E1_DArigo_S_coef": 1.00, "E1_DH0_E_const": 1.00,
-    "E1_DH0_E_exp_mass": 1.00, "E1_DH0_E_exp_beta": 1.00, "E1_DH0_W_const": 1.00,
-    "E1_DH0_W_beta_coef": 1.00, "E1_DH0_S_coef": 1.00, "E1_DH1_E_const": 1.00,
-    "E1_DH1_E_exp_mass": 1.00, "E1_DH1_W_const": 1.00, "E1_DH1_W_beta_coef": 1.00,
-    "E1_DH1_S_coef": 1.00, "M1_E_const": 1.00, "M1_E_exp": 1.00, "M1_W_val": 1.00,
-    "M1_S_val": 1.00, "E2_E_const": 1.00, "E2_E_exp": 1.00, "E2_W_const": 1.00,
-    "E2_W_mass_coef": 1.00, "E2_S_coef": 1.00
+    "global_PSF_norm": 1.212121212,
+    "E1_DArigo_E_const1": 1.212121212, "E1_DArigo_E_const2": 1.212121212, "E1_DArigo_E_exp": 1.212121212,
+    "E1_DArigo_W_factor": 1.212121212, "E1_DArigo_S_coef": 1.212121212, "E1_DH0_E_const": 1.212121212,
+    "E1_DH0_E_exp_mass": 1.212121212, "E1_DH0_E_exp_beta": 1.212121212, "E1_DH0_W_const": 1.212121212,
+    "E1_DH0_W_beta_coef": 1.212121212, "E1_DH0_S_coef": 1.212121212, "E1_DH1_E_const": 1.212121212,
+    "E1_DH1_E_exp_mass": 1.212121212, "E1_DH1_W_const": 1.212121212, "E1_DH1_W_beta_coef": 1.212121212,
+    "E1_DH1_S_coef": 1.212121212, "M1_E_const": 1.212121212, "M1_E_exp": 1.212121212, "M1_W_val": 1.212121212,
+    "M1_S_val": 1.212121212, "E2_E_const": 1.212121212, "E2_E_exp": 1.212121212, "E2_W_const": 1.212121212,
+    "E2_W_mass_coef": 1.212121212, "E2_S_coef": 1.212121212
   },
   "deformations": {
-    "STAB_beta2": 1.00,
-    "UNSTAB_beta2": 1.00
+    "STAB_beta2": 1.212121212,
+    "UNSTAB_beta2": 1.212121212
   },
   "kcksyst": {
-    "STAB_Pairing": 1.00,
-    "STAB_Eshell": 1.00,
-    "STAB_Ematch": 1.00,
-    "STAB_astar": 1.00,
-    "STAB_T": 1.00,
-    "STAB_E0": 1.00,
-    "STAB_Tsys": 1.00,
-    "STAB_E0sys": 1.00,
-    "UNSTAB_Pairing": 1.00,
-    "UNSTAB_Eshell": 1.00,
-    "UNSTAB_Ematch": 1.00,
-    "UNSTAB_astar": 1.00,
-    "UNSTAB_T": 1.00,
-    "UNSTAB_E0": 1.00,
-    "UNSTAB_Tsys": 1.00,
-    "UNSTAB_E0sys": 1.00
+    "STAB_Pairing": 1.212121212,
+    "STAB_Eshell": 1.212121212,
+    "STAB_Ematch": 1.212121212,
+    "STAB_astar": 1.212121212,
+    "STAB_T": 1.212121212,
+    "STAB_E0": 1.212121212,
+    "STAB_Tsys": 1.212121212,
+    "STAB_E0sys": 1.212121212,
+    "UNSTAB_Pairing": 1.212121212,
+    "UNSTAB_Eshell": 1.212121212,
+    "UNSTAB_Ematch": 1.212121212,
+    "UNSTAB_astar": 1.212121212,
+    "UNSTAB_T": 1.212121212,
+    "UNSTAB_E0": 1.212121212,
+    "UNSTAB_Tsys": 1.212121212,
+    "UNSTAB_E0sys": 1.212121212
   },
   "yamodel": {
-    "MY_AS1_Wa": 1.00,
-    "MY_AS1_Wb": 1.00,
-    "MY_AS1_Mua": 1.00,
-    "MY_AS1_Mub": 1.00,
-    "MY_AS1_Siga": 1.00,
-    "MY_AS1_Sigb": 1.00,
-    "MY_AS2_Wa": 1.00,
-    "MY_AS2_Wb": 1.00,
-    "MY_AS2_Mua": 1.00,
-    "MY_AS2_Mub": 1.00,
-    "MY_AS2_Siga": 1.00,
-    "MY_AS2_Sigb": 1.00,
-    "MY_S_Siga": 1.00,
-    "MY_S_Sigb": 1.00
+    "MY_AS1_Wa": 0.999,
+    "MY_AS1_Wb": 0.999,
+    "MY_AS1_Mua": 0.999,
+    "MY_AS1_Mub": 0.999,
+    "MY_AS1_Siga": 0.999,
+    "MY_AS1_Sigb": 0.999,
+    "MY_AS2_Wa": 0.999,
+    "MY_AS2_Wb": 0.999,
+    "MY_AS2_Mua": 0.999,
+    "MY_AS2_Mub": 0.999,
+    "MY_AS2_Siga": 0.999,
+    "MY_AS2_Sigb": 0.999,
+    "MY_S_Siga": 0.999,
+    "MY_S_Sigb": 0.999
   }
 }
 
