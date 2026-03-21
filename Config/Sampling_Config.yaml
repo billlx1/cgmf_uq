@@ -39,23 +39,156 @@
 #   (otherwise generation fails with a clear error)
 # -------------------------------------------------------------------------
 
-num_samples: 100
+num_samples: 10
 seed: 12345
 sampling_info_dir: ../tests
 
 groups:
-  - name: gstrength_simple
+  # -----------------------------
+  # TKE correlated sampling groups (enabled)
+  # -----------------------------
+  - name: tke_en_correlated
+    enabled: true
+    parameters:
+      - tke_en_a
+      - tke_en_e0
+      - tke_en_b
+      - tke_en_d
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: TKE_en_Sample.json
+
+  - name: tke_ah_correlated
+    enabled: true
+    parameters:
+      - tke_ah_a0
+      - tke_ah_amax
+      - tke_ah_c0
+      - tke_ah_c1
+      - tke_ah_c2
+      - tke_ah_c3
+      - tke_ah_c4
+      - tke_ah_c5
+      - tke_ah_c6
+      - tke_ah_c7
+      - tke_ah_c8
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: TKE_Ah_Sample.json
+
+  - name: stke_ah_correlated
+    enabled: true
+    parameters:
+      - Stke_ah_a0
+      - Stke_ah_amax
+      - Stke_ah_c0
+      - Stke_ah_c1
+      - Stke_ah_c2
+      - Stke_ah_c3
+      - Stke_ah_c4
+      - Stke_ah_c5
+      - Stke_ah_c6
+      - Stke_ah_c7
+      - Stke_ah_c8
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: STKE_Ah_Sample.json
+
+  # -----------------------------
+  # Other groups (disabled by default)
+  # -----------------------------
+  - name: gstrength_uncorr_20pct
     enabled: false
     parameters:
       - global_PSF_norm
+      - E1_DArigo_E_const1
+      - E1_DArigo_E_const2
+      - E1_DArigo_E_exp
+      - E1_DArigo_W_factor
+      - E1_DArigo_S_coef
+      - E1_DH0_E_const
+      - E1_DH0_E_exp_mass
+      - E1_DH0_E_exp_beta
+      - E1_DH0_W_const
+      - E1_DH0_W_beta_coef
+      - E1_DH0_S_coef
+      - E1_DH1_E_const
+      - E1_DH1_E_exp_mass
+      - E1_DH1_W_const
+      - E1_DH1_W_beta_coef
+      - E1_DH1_S_coef
+      - M1_E_const
+      - M1_E_exp
+      - M1_W_val
+      - M1_S_val
+      - E2_E_const
+      - E2_E_exp
+      - E2_W_const
+      - E2_W_mass_coef
+      - E2_S_coef
     sampler: independent_gaussian
     value_space: scale
     params:
-      stddev: 0.05
+      stddev: 0.2
 
-  # Example YAmodel block (expects mu/chol files in sampling_info_dir)
-  - name: yamodel_correlated
-    enabled: true
+  - name: spinscaling_uncorr_20pct
+    enabled: false
+    parameters:
+      - alpha_0
+      - alpha_slope
+    sampler: independent_gaussian
+    value_space: scale
+    params:
+      stddev: 0.2
+
+  - name: rta_uncorr_20pct
+    enabled: false
+    parameters:
+      - rta_scale_factor
+    sampler: independent_gaussian
+    value_space: scale
+    params:
+      stddev: 0.2
+
+  - name: deformations_uncorr_20pct
+    enabled: false
+    parameters:
+      - STAB_beta2
+      - UNSTAB_beta2
+    sampler: independent_gaussian
+    value_space: scale
+    params:
+      stddev: 0.2
+
+  - name: kcksyst_uncorr_20pct
+    enabled: false
+    parameters:
+      - STAB_Pairing
+      - STAB_Eshell
+      - STAB_Ematch
+      - STAB_astar
+      - STAB_T
+      - STAB_E0
+      - STAB_Tsys
+      - STAB_E0sys
+      - UNSTAB_Pairing
+      - UNSTAB_Eshell
+      - UNSTAB_Ematch
+      - UNSTAB_astar
+      - UNSTAB_T
+      - UNSTAB_E0
+      - UNSTAB_Tsys
+      - UNSTAB_E0sys
+    sampler: independent_gaussian
+    value_space: scale
+    params:
+      stddev: 0.2
+
+  - name: yamodel_uncorr_20pct
+    enabled: false
     parameters:
       - MY_AS1_Wa
       - MY_AS1_Wb
@@ -71,7 +204,7 @@ groups:
       - MY_AS2_Sigb
       - MY_S_Siga
       - MY_S_Sigb
-    sampler: mvn_cholesky
-    value_space: absolute
+    sampler: independent_gaussian
+    value_space: scale
     params:
-      json_file: Example_YAM_Sample.json
+      stddev: 0.2

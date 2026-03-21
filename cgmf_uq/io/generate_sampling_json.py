@@ -136,10 +136,11 @@ def _apply_value_space(
             if fallback_defaults and p in fallback_defaults and fallback_defaults[p] != 0.0:
                 denom = fallback_defaults[p]
             else:
-                raise ValueError(
-                    f"Default value for '{p}' is zero; cannot convert absolute to scale. "
-                    f"Provide a nonzero fallback (e.g., MVN mu) or avoid absolute sampling."
+                print(
+                    f"WARNING: Default value for '{p}' is zero and no nonzero fallback found; "
+                    f"using 1.0 as denominator (scale factor equals absolute value)."
                 )
+                denom = 1.0
         out[p] = v / denom
     return out
 

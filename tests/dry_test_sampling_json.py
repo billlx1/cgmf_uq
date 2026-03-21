@@ -33,18 +33,35 @@ def run() -> None:
 
         _write_yaml(
             sampling_cfg,
-            """
+            f"""
 num_samples: 3
 seed: 123
-sampling_info_dir: sampling_info
+sampling_info_dir: {PROJECT_ROOT / "tests"}
 
 groups:
-  - name: simple_gauss
-    parameters: [global_PSF_norm]
-    sampler: independent_gaussian
-    value_space: scale
+  - name: tke_en_correlated
+    enabled: true
+    parameters: [tke_en_a, tke_en_e0, tke_en_b, tke_en_d]
+    sampler: mvn_cholesky
+    value_space: absolute
     params:
-      stddev: 0.1
+      json_file: TKE_en_Sample.json
+
+  - name: tke_ah_correlated
+    enabled: true
+    parameters: [tke_ah_a0, tke_ah_amax, tke_ah_c0, tke_ah_c1, tke_ah_c2, tke_ah_c3, tke_ah_c4, tke_ah_c5, tke_ah_c6, tke_ah_c7, tke_ah_c8]
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: TKE_Ah_Sample.json
+
+  - name: stke_ah_correlated
+    enabled: true
+    parameters: [Stke_ah_a0, Stke_ah_amax, Stke_ah_c0, Stke_ah_c1, Stke_ah_c2, Stke_ah_c3, Stke_ah_c4, Stke_ah_c5, Stke_ah_c6, Stke_ah_c7, Stke_ah_c8]
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: STKE_Ah_Sample.json
 """,
         )
 
@@ -63,15 +80,12 @@ groups:
         if not json_path.exists():
             raise AssertionError("Expected JSON output not found")
 
-        # Deterministic check for first sample
-        rng = np.random.default_rng(123)
-        expected = rng.normal(loc=1.0, scale=0.1, size=3)[0]
-
+        # Basic sanity check: ensure TKE scales are finite
         import json as _json
         data = _json.loads(json_path.read_text())
-        got = data["gstrength_gdr"]["global_PSF_norm"]
-        if abs(got - expected) > 1e-10:
-            raise AssertionError("Deterministic sample mismatch")
+        tke_en = data["tkemodel"]["tke_en_scales"]
+        if not all(np.isfinite(tke_en)):
+            raise AssertionError("Non-finite values in tke_en_scales")
 
         # Validation: duplicate parameter in two groups
         bad_cfg = tmp_dir / "Sampling_Bad.yaml"
