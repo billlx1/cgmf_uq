@@ -42,22 +42,36 @@ This project includes the following specific `.dat` files at the time of writing
 
 ## Project Phases
 
-Full worflow performed in two phases:
+The Full worflow can be performed in two phases:
 
 1. **Phase 1:** Parameter Sensitivity Testing
-2. **Phase 2:** Random Parameter Sampling (COMING SOON)
+2. **Phase 2:** Random Parameter Sampling
 
 ## Results
+
+### Single CGMF Run
 
 Typical output of per-run post-processing script for 100 000  events of thermal neutron induced fission of U-235, ~ 1.5 CPU hours on Intel Skylake.
 
 ![Example PNG output from per-task post processing script](Docs_Images/Post_Proc_Ex.png)
+
+### Sensitivity Testing
 
 Sensitivity coefficients of model parameters with respect to prompt fission neutron and prompt gamma emission spectra for thermal neutron induced fission of U-235. 4 x 100 000 events per paramter, ~ 550 CPU hours total on Intel Skylake. Both spectra have large sensitivities to the parameterisation of TKE and fragment yields.
 
 ![Example PNG output from analyse_sensitivities script - PFGS](Docs_Images/Sensitivity_Results/sensitivity_heatmap_Gamma_Spectrum.png)
 
 ![Example PNG output from analyse_sensitivities script - PFNS](Docs_Images/Sensitivity_Results/sensitivity_heatmap_Neutron_Spectrum.png)
+
+### Full Parameter Sampling
+
+Values for neutron and gamma multiplicities, along with average and total gamma energy over 500 sampled runs of neutron induced fission of U-235. ~ 800 CPU hours total on Intel Skylake. TKE and Yields parameters sampled from parameter covariance matrices generated via Markov Chain Monte Carlo fitted against available data. All other parameter scaling factors sampled as a gaussian with mean 1.0 and standard deviation 0.2.
+
+![Example PNG output from analyse_sampling script - Scalar Values](Docs_Images/Sampling_Results/01_scalar_observables.png)
+
+![Example PNG output from analyse_sampling script - PFGS](Docs_Images/Sampling_Results/02_gamma_spectrum_envelope.png)
+
+![Example PNG output from analyse_sampling script - PFNS](Docs_Images/Sampling_Results/03_neutron_spectrum_envelope.png)
 
 ## How To Run
 
@@ -109,6 +123,7 @@ PROJECT_ROOT/
 │   │   ├── __init__.py
 │   │   ├── dat_generator.py
 │   │   ├── dat_parser.py
+│   │   ├── generate_sampling_json.py
 │   │   ├── generate_scale_factor_json.py
 │   │   ├── param_json_yaml_mapper.py
 │   │   └── FILE_PARSERS/        # Low-level regex/parsing logic
@@ -120,27 +135,41 @@ PROJECT_ROOT/
 │   │       ├── PARSE_tkemodel.py
 │   │       └── PARSE_yamodel.py              
 │   │
+│   ├── sampling/                # Sampling algorithms & routines
+│   │   ├── __init__.py
+│   │   └── samplers.py
+│   │
 │   └── slurm/                   # HPC Infrastructure
+│       ├── sampling_job_template.sh
 │       ├── sensitivity_job_template.sh
 │       └── SLURM_Single_Job_Generator.py
 │
 ├── config/                      # Global configuration & Metadata
 │   ├── Default_Scale_Factors.json
 │   ├── Parameter_Registry.yaml
-│   └── Sensitivity_Coeff.yaml
+│   ├── Sampling_Config.yaml
+│   ├── Sensitivity_Coeff.yaml
+│   └── Sampling_JSONS/          # Generated sampling JSON configurations
+│       └── *.json               # (e.g., U235_nth_TKE_Ah_Sample.json, etc.)
 │
 ├── scripts/                     # User entry points & Execution
-│   ├── post_processing.py
-│   ├── submit_sensitivity.py
+│   ├── analyse_sampling.py
 │   ├── analyse_sensitivity.py
+│   ├── post_processing.py
+│   ├── submit_sampling.py
+│   ├── submit_sensitivity.py
+│   ├── run_analyse_sampling.sh
+│   ├── run_analyse_sensitivity.sh
+│   ├── run_submit_sampling.sh
 │   ├── run_submit_sensitivity.sh
-│   ├── run_verification.sh
-│   └── run_analyse_sensitivity.sh
+│   └── run_verification.sh
 │
 └── tests/                       # Validation & Verification
+    ├── dry_run_sampling_json.py
     ├── dry_test_dat_generator.py
     ├── dry_test_dat_parser.py
     ├── dry_test_manifest_validation.py
+    ├── dry_test_sampling_json.py
     ├── verify_dat_perturbations.py
     ├── verify_post_procs.py
     └── test_scale_factors.json

@@ -26,4 +26,18 @@ In terms of parser stability, some are fundamentally robust while some may cause
 
 ## YAmodel and TKEmodel Coupling.
 
-Parameterisation of YAmodel and TKEmodel are coupled, due to the enforced condition that `TKE < Q_{fission}`. Small changes, mostly in the YAmodel paramters can cause unphysical fragment distributions to be sampled from with very small Q values. CGMF can then silently fail by repeatedly calling `Yields::sampleTKE` within `FissionFragments::sampleFissionFragments`. It is unclear whether during the sampling phase that yield curves should be constrained by data as a pre-run rejection criteria or whether the post-run rejection criteria will effectively address this. The CGMF fork will likely be altered to make sure this failure mode exits gracefully. 
+Parameterisation of YAmodel and TKEmodel are coupled, due to the enforced condition that `TKE < Q$_{fission}$`. Small changes, mostly in the YAmodel paramters can cause unphysical fragment distributions to be sampled from with very small Q values. CGMF can then silently fail by repeatedly calling `Yields::sampleTKE` within `FissionFragments::sampleFissionFragments`. It is unclear whether during the sampling phase that yield curves should be constrained by data as a pre-run rejection criteria or whether the post-run rejection criteria will effectively address this. The CGMF fork will likely be altered to make sure this failure mode exits gracefully. 
+
+## Sampled Uncertainties.
+
+Many parameters internal to CGMF are taken from different versions of the RIPL library https://www-nds.iaea.org/RIPL-3/. In many cases these parameters reflect fits to experimental data which was not immediately available during this work. In such cases, and for other parameters where there wasnt a clear best approach parameter scaling factors were sampled as a gaussian with mean 1.0 and standard deviation 0.2. This applies to the parameters from the following .dat files
+
+ - `gstrength_gdr_params.dat`
+ - `kcksyst.dat`
+ - `deformations.dat`
+ - `rta.dat`
+ - `spinscaling.dat`
+ 
+ For the parameters described in `tkemodel.dat` and `yamodel.dat`, parameter distributions were extracted from available experimental data by applying Markov Chain Monte Carlo (MCMC) to obtain posterior distributions describing the most probably values of the parameters used within CGMF. In this project average parameter values and parameter covariances are sampled from the lower Cholesky of the paramteer covariance matrix.
+ 
+ The MCMC based method from which `yamodel.dat` parameters are sampled from during this project are described in https://github.com/billlx1/YAmodel-Sampling.
