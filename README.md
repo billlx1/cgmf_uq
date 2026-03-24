@@ -102,7 +102,7 @@ Verification and analysis can then be performed used by copying `run_verificatio
 - `sbatch run_verification.sh`
 - `sbatch run_analyse_sensitivity.sh`
 
- 
+ **The same usage patterns can be applied directly to the Phase II Sampling section of this project. The file `config/Sampling_Config.yaml` should be edited to implement the desired sampling behaviour**
 
 ## Code Architecture
 ```
