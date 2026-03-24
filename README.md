@@ -65,13 +65,15 @@ Sensitivity coefficients of model parameters with respect to prompt fission neut
 
 ### Full Parameter Sampling
 
-Values for neutron and gamma multiplicities, along with average and total gamma energy over 500 sampled runs of neutron induced fission of U-235. ~ 800 CPU hours total on Intel Skylake. TKE and Yields parameters sampled from parameter covariance matrices generated via Markov Chain Monte Carlo fitted against available data. All other parameter scaling factors sampled as a gaussian with mean 1.0 and standard deviation 0.2.
+Values for neutron and gamma multiplicities, along with average and total gamma energy over 500 sampled runs of neutron induced fission of U-235. ~ 800 CPU hours total on Intel Skylake. TKE and Yields parameters sampled from parameter covariance matrices generated via Markov Chain Monte Carlo fitted against available data. All other parameter scaling factors sampled as a gaussian with mean 1.0 and standard deviation 0.2. Chi squared values against ENDF/B-VIII.0 data, where available, is plotted along with a weighted combined Chi squared across each observable considered.
 
 ![Example PNG output from analyse_sampling script - Scalar Values](Docs_Images/Sampling_Results/01_scalar_observables.png)
 
 ![Example PNG output from analyse_sampling script - PFGS](Docs_Images/Sampling_Results/02_gamma_spectrum_envelope.png)
 
 ![Example PNG output from analyse_sampling script - PFNS](Docs_Images/Sampling_Results/03_neutron_spectrum_envelope.png)
+
+![Example PNG output from analyse_sampling script - PFNS](Docs_Images/Sampling_Results/06_chi2_fit_scores.png)
 
 ## How To Run
 
