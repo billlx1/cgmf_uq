@@ -39,9 +39,9 @@
 #   (otherwise generation fails with a clear error)
 # -------------------------------------------------------------------------
 
-num_samples: 10
+num_samples: 500
 seed: 12345
-sampling_info_dir: ../tests
+sampling_info_dir: ./Sampling_JSONS
 
 groups:
   # -----------------------------
@@ -97,11 +97,34 @@ groups:
     params:
       json_file: STKE_Ah_Sample.json
 
+  # Example YAmodel block (expects mu/chol files in sampling_info_dir)
+  - name: yamodel_correlated
+    enabled: true
+    parameters:
+      - MY_AS1_Wa
+      - MY_AS1_Wb
+      - MY_AS1_Mua
+      - MY_AS1_Mub
+      - MY_AS1_Siga
+      - MY_AS1_Sigb
+      - MY_AS2_Wa
+      - MY_AS2_Wb
+      - MY_AS2_Mua
+      - MY_AS2_Mub
+      - MY_AS2_Siga
+      - MY_AS2_Sigb
+      - MY_S_Siga
+      - MY_S_Sigb
+    sampler: mvn_cholesky
+    value_space: absolute
+    params:
+      json_file: Example_YAM_Sample.json
+
   # -----------------------------
   # Other groups (disabled by default)
   # -----------------------------
   - name: gstrength_uncorr_20pct
-    enabled: false
+    enabled: true
     parameters:
       - global_PSF_norm
       - E1_DArigo_E_const1
@@ -135,7 +158,7 @@ groups:
       stddev: 0.2
 
   - name: spinscaling_uncorr_20pct
-    enabled: false
+    enabled: true
     parameters:
       - alpha_0
       - alpha_slope
@@ -145,7 +168,7 @@ groups:
       stddev: 0.2
 
   - name: rta_uncorr_20pct
-    enabled: false
+    enabled: true
     parameters:
       - rta_scale_factor
     sampler: independent_gaussian
@@ -154,7 +177,7 @@ groups:
       stddev: 0.2
 
   - name: deformations_uncorr_20pct
-    enabled: false
+    enabled: true
     parameters:
       - STAB_beta2
       - UNSTAB_beta2
@@ -164,7 +187,7 @@ groups:
       stddev: 0.2
 
   - name: kcksyst_uncorr_20pct
-    enabled: false
+    enabled: true
     parameters:
       - STAB_Pairing
       - STAB_Eshell
@@ -187,24 +210,25 @@ groups:
     params:
       stddev: 0.2
 
-  - name: yamodel_uncorr_20pct
-    enabled: false
-    parameters:
-      - MY_AS1_Wa
-      - MY_AS1_Wb
-      - MY_AS1_Mua
-      - MY_AS1_Mub
-      - MY_AS1_Siga
-      - MY_AS1_Sigb
-      - MY_AS2_Wa
-      - MY_AS2_Wb
-      - MY_AS2_Mua
-      - MY_AS2_Mub
-      - MY_AS2_Siga
-      - MY_AS2_Sigb
-      - MY_S_Siga
-      - MY_S_Sigb
-    sampler: independent_gaussian
-    value_space: scale
-    params:
-      stddev: 0.2
+        #  - name: yamodel_uncorr_20pct
+        #    enabled: false
+        #    parameters:
+        #      - MY_AS1_Wa
+        #      - MY_AS1_Wb
+        #      - MY_AS1_Mua
+        #      - MY_AS1_Mub
+        #      - MY_AS1_Siga
+        #      - MY_AS1_Sigb
+        #      - MY_AS2_Wa
+        #      - MY_AS2_Wb
+        #      - MY_AS2_Mua
+        #      - MY_AS2_Mub
+        #      - MY_AS2_Siga
+        #      - MY_AS2_Sigb
+        #      - MY_S_Siga
+        #      - MY_S_Sigb
+        #    sampler: independent_gaussian
+        #    value_space: scale
+        #    params:
+        #      stddev: 0.2
+
