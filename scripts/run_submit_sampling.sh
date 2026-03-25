@@ -46,3 +46,7 @@ python3 ./scripts/submit_sampling.py \
   --max-concurrent "$MAX_CONCURRENT" \
   --time-limit "$TIME_LIMIT" \
   --force
+
+# Optional reuse from prior run:
+#   --reuse-configs /path/to/old/output \
+#   --reuse-groups all-except:yamodel_uncorr_20pct

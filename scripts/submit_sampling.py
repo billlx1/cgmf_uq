@@ -24,6 +24,8 @@ def generate_configurations(
     project_dir: Path,
     cgmf_default_data: Path,
     target_id: int,
+    reuse_configs: Path | None,
+    reuse_groups: str | None,
 ) -> Path:
     print("[1/5] Generating sampling configurations...")
     args_ns = SimpleNamespace(
@@ -33,6 +35,8 @@ def generate_configurations(
         cgmf_default_data=cgmf_default_data,
         target_id=target_id,
         force=True,
+        reuse_configs=reuse_configs,
+        reuse_groups=reuse_groups,
     )
 
     try:
@@ -222,6 +226,8 @@ def main():
 
     parser.add_argument("--submit", action="store_true", help="Actually submit the job (default is dry-run)")
     parser.add_argument("--force", action="store_true", help="Overwrite existing output directory")
+    parser.add_argument("--reuse-configs", help="Path to prior output dir or configs/ dir to reuse scale factors")
+    parser.add_argument("--reuse-groups", help="Comma list, 'all', or 'all-except:grp1,grp2'")
 
     args = parser.parse_args()
 
@@ -253,6 +259,8 @@ def main():
         project_dir,
         Path(args.cgmf_default_data),
         args.target_id,
+        Path(args.reuse_configs) if args.reuse_configs else None,
+        args.reuse_groups,
     )
     total_tasks = validate_configurations(manifest_path)
 

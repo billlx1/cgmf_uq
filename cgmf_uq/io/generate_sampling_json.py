@@ -65,6 +65,18 @@ def parse_args():
         action="store_true",
         help="Overwrite existing output directory without prompting",
     )
+    parser.add_argument(
+        "--reuse-configs",
+        type=Path,
+        default=None,
+        help="Path to prior output directory or configs/ dir to reuse scale factors",
+    )
+    parser.add_argument(
+        "--reuse-groups",
+        type=str,
+        default=None,
+        help="Comma-separated group names to reuse, or 'all', or 'all-except:grp1,grp2'",
+    )
     return parser.parse_args()
 
 
@@ -115,6 +127,62 @@ def _normalize_parameters(param_spec: Any) -> List[str]:
     if isinstance(param_spec, dict):
         return [name for name, cfg in param_spec.items() if cfg is None or cfg.get("enabled", True)]
     raise ValueError("parameters must be a list or dict")
+
+
+def _resolve_reuse_groups(reuse_spec: str, enabled_groups: Dict[str, Dict[str, Any]]) -> List[str]:
+    if reuse_spec == "all":
+        return list(enabled_groups.keys())
+    if reuse_spec.startswith("all-except:"):
+        raw = reuse_spec.split(":", 1)[1]
+        exclude = {g.strip() for g in raw.split(",") if g.strip()}
+        return [g for g in enabled_groups.keys() if g not in exclude]
+    return [g.strip() for g in reuse_spec.split(",") if g.strip()]
+
+
+def _load_reuse_samples(reuse_configs: Path) -> List[Dict[str, Any]]:
+    reuse_configs = reuse_configs.resolve()
+    manifest = reuse_configs / "manifest.csv" if reuse_configs.is_dir() else None
+    configs_dir = reuse_configs / "configs" if reuse_configs.is_dir() else None
+
+    if reuse_configs.is_file():
+        raise ValueError("reuse-configs must be a directory containing configs/ or manifest.csv")
+
+    json_paths: List[Path] = []
+    if manifest and manifest.exists():
+        lines = manifest.read_text().splitlines()
+        header = lines[0].split(",") if lines else []
+        if "config_file" not in header:
+            raise ValueError("reuse manifest missing config_file column")
+        idx = header.index("config_file")
+        for line in lines[1:]:
+            if not line.strip():
+                continue
+            parts = line.split(",")
+            if len(parts) <= idx:
+                continue
+            p = Path(parts[idx])
+            if not p.is_absolute():
+                p = manifest.parent / p
+            json_paths.append(p)
+    elif configs_dir and configs_dir.exists():
+        json_paths = sorted(configs_dir.glob("*.json"))
+    else:
+        raise ValueError("reuse-configs must contain manifest.csv or configs/*.json")
+
+    samples = []
+    for p in json_paths:
+        samples.append(json.loads(p.read_text()))
+    return samples
+
+
+def _extract_scale_factor(sample_json: Dict[str, Any], mapper: ParameterMapper, param_name: str) -> float:
+    info = mapper.param_to_json[param_name]
+    section = info["json_section"]
+    if info["scale_type"] == "scalar":
+        return float(sample_json[section][info["json_key"]])
+    array_name = info["json_key"]
+    idx = info["array_index"]
+    return float(sample_json[section][array_name][idx])
 
 
 def _apply_value_space(
@@ -232,6 +300,8 @@ def generate_sampling(args) -> None:
     output_dir = args.output
     cgmf_default_data = args.cgmf_default_data
     target_id = args.target_id
+    reuse_configs = args.reuse_configs
+    reuse_groups_spec = args.reuse_groups
 
     _validate_inputs(registry_path, sampling_path)
 
@@ -263,21 +333,43 @@ def generate_sampling(args) -> None:
 
     sampling_info_dir = _resolve_sampling_info_dir(sampling_config, sampling_path)
 
+    # Build enabled group map
+    enabled_groups: Dict[str, Dict[str, Any]] = {}
+    for group in groups:
+        if group.get("enabled", True):
+            name = group.get("name", "")
+            if not name:
+                raise ValueError("Each group must have a name")
+            enabled_groups[name] = group
+
     # Determine which parameters need defaults from .dat files
     absolute_params: List[str] = []
-    for group in groups:
-        if not group.get("enabled", True):
-            continue
+    for group in enabled_groups.values():
         if group.get("value_space", "scale") == "absolute":
             absolute_params.extend(_normalize_parameters(group.get("parameters", [])))
 
     dat_defaults = _load_dat_defaults(absolute_params, registry_path, cgmf_default_data, target_id)
 
+    # Resolve reuse configuration
+    reuse_params: set[str] = set()
+    reuse_samples: List[Dict[str, Any]] = []
+    if reuse_groups_spec:
+        if not reuse_configs:
+            raise ValueError("--reuse-groups requires --reuse-configs")
+        reuse_group_names = _resolve_reuse_groups(reuse_groups_spec, enabled_groups)
+        for g in reuse_group_names:
+            if g not in enabled_groups:
+                raise ValueError(f"Reuse group '{g}' not found among enabled groups")
+            reuse_params.update(_normalize_parameters(enabled_groups[g].get("parameters", [])))
+        reuse_samples = _load_reuse_samples(Path(reuse_configs))
+        if len(reuse_samples) != num_samples:
+            raise ValueError("reuse-configs sample count does not match num_samples")
+    elif reuse_configs:
+        raise ValueError("--reuse-configs requires --reuse-groups")
+
     # Build per-group samples
     group_samples: List[Dict[str, np.ndarray]] = []
-    for group in groups:
-        if not group.get("enabled", True):
-            continue
+    for group in enabled_groups.values():
         name = group.get("name", "")
         parameters = _normalize_parameters(group.get("parameters", []))
         sampler_name = group.get("sampler", "")
@@ -333,6 +425,10 @@ def generate_sampling(args) -> None:
         for g in group_samples:
             for p, arr in g.items():
                 sample[p] = float(arr[i])
+        if reuse_params:
+            old = reuse_samples[i]
+            for p in reuse_params:
+                sample[p] = _extract_scale_factor(old, mapper, p)
         all_samples.append(sample)
 
     # Write JSONs and manifest
